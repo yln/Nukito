@@ -23,15 +23,15 @@ namespace Nukito.Test.Scenario
     public void MockedInterface(IA a)
     {
       // Assert
-      a.Should().BeAssignableTo<IMocked<IA>>();
+      a.Should().BeMock();
     }
 
     [NukitoFact]
     public void MockedInterfaceMultipleParameters(IA a, IB b)
     {
       // Assert
-      a.Should().BeAssignableTo<IMocked<IA>>();
-      b.Should().BeAssignableTo<IMocked<IB>>();
+      a.Should().BeMock();
+      b.Should().BeMock();
     }
 
     [NukitoFact]

@@ -8,14 +8,14 @@ namespace Nukito.Test.Scenario
     public void ClassWithDependencyOnInterface(DepOnInterface depOnInterface)
     {
       // Assert
-      depOnInterface.A.Should().BeAssignableTo<IA>();
+      depOnInterface.A.Should().BeMock();
     }
 
     [NukitoFact]
     public void ClassWithDependencyOnOtherClass(DepOnClass depOnClass)
     {
       // Assert
-      depOnClass.A.Should().BeOfType<A>();
+      depOnClass.A.Should().NotBeMock();
     }
   }
 }

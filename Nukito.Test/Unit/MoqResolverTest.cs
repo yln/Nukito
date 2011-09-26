@@ -34,7 +34,7 @@ namespace Nukito.Test.Unit
       Mock mock = _Resolver.GetMock(typeof (Mock<IA>));
 
       // Assert
-      mock.Should().BeAssignableTo<Mock<IA>>();
+      mock.Should().BeOfType<Mock<IA>>();
     }
 
     [NukitoFact]
@@ -44,14 +44,14 @@ namespace Nukito.Test.Unit
       object iface = _Resolver.Get(typeof (IA));
 
       // Assert
-      iface.Should().BeAssignableTo<IA>();
+      iface.Should().BeMock().And.BeAssignableTo<IA>();
     }
 
     [NukitoFact]
     public void GetSelfBindableConcreteClass()
     {
       // Act
-      object aClass = _Resolver.Get(typeof (A)); // self binding
+      object aClass = _Resolver.Get(typeof (A));
 
       // Assert
       aClass.Should().BeOfType<A>();
