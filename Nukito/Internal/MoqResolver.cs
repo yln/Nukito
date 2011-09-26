@@ -14,7 +14,7 @@ namespace Nukito.Internal
     {
       if (IsInvalidMockType(type))
       {
-        throw new NukitoException("Please use the generic version Moq.Mock<T> instead of Moq.Mock");
+        throw new NukitoException("The generic version Mock<T> must be used in place of Mock");
       }
       return IsMockType(type)
                ? GetMock(type)
@@ -35,8 +35,13 @@ namespace Nukito.Internal
     internal Mock GetMock(Type type)
     {
       Type serviceType = type.GetGenericArguments().Single();
-      object servce = _mockingKernel.Get(serviceType);
-      return ((IMocked) servce).Mock;
+      var mocked = _mockingKernel.Get(serviceType) as IMocked;
+      if (mocked == null)
+      {
+        string msg = string.Format("Can not create mock for type {0}", serviceType.FullName);
+        throw new NukitoException(msg);
+      }
+      return mocked.Mock;
     }
   }
 }

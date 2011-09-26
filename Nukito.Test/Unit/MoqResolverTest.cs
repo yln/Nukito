@@ -1,10 +1,9 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using Nukito.Internal;
-using Nukito.TestRealm;
+using Nukito.Test.Scenario;
 
-namespace Nukito.Unit
+namespace Nukito.Test.Unit
 {
   public class MoqResolverTest
   {
@@ -39,7 +38,7 @@ namespace Nukito.Unit
     }
 
     [NukitoFact]
-    public void GetMockForInterface()
+    public void GetMockedInterface()
     {
       // Act
       object iface = _Resolver.Get(typeof (IA));
@@ -59,24 +58,13 @@ namespace Nukito.Unit
     }
 
     [NukitoFact]
-    public void GetValidMock()
+    public void GetMockType()
     {
       // Act
       object mock = _Resolver.Get(typeof (Mock<IA>));
 
       // Assert
       mock.Should().BeOfType<Mock<IA>>();
-    }
-
-    [NukitoFact]
-    public void GetInvalidMockShouldThrow()
-    {
-      // Act
-      Action a = () => _Resolver.Get(typeof (Mock));
-
-      // Assert
-      a.ShouldThrow<NukitoException>()
-        .WithMessage("Please use the generic version Moq.Mock<T> instead of Moq.Mock");
     }
   }
 }

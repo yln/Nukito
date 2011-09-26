@@ -8,7 +8,7 @@
     <ProjectGuid>{34950584-95AC-4639-BA6F-7AFE70DE721D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nukito</RootNamespace>
+    <RootNamespace>Nukito.Test</RootNamespace>
     <AssemblyName>Nukito.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -39,9 +39,6 @@
     <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Ninject, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.2.2.1.4\lib\net40-Full\Ninject.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,9 +51,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Scenario\AutoMockMethodParameterTest.cs" />
+    <Compile Include="Scenario\BasicScenarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestRealm\Basic.cs" />
+    <Compile Include="Scenario\ErrorScenarios.cs" />
+    <Compile Include="Scenario\TestRealm.cs" />
+    <Compile Include="Scenario\WithDependencyScenarios.cs" />
     <Compile Include="Unit\MoqResolverTest.cs" />
   </ItemGroup>
   <ItemGroup>
