@@ -17,5 +17,13 @@ namespace Nukito.Test.Scenario
       // Assert
       depOnClass.A.Should().NotBeMock();
     }
+
+    [NukitoFact]
+    public void ClassWithTransitiveDependencyOnOtherClasses(TransDep transDep)
+    {
+      // Assert
+      transDep.DepOnInterface.A.Should().BeMock();
+      transDep.DepOnClass.A.Should().NotBeMock();
+    }
   }
 }
