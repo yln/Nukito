@@ -49,6 +49,7 @@
     <Compile Include="MockAssertionsExtensions.cs" />
     <Compile Include="Scenario\BasicScenarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scenario\ClassWideSettingsScenarios.cs" />
     <Compile Include="Scenario\ErrorScenarios.cs" />
     <Compile Include="Scenario\InterferenceScenarios.cs" />
     <Compile Include="Scenario\MockBehaviorScenarios.cs" />
