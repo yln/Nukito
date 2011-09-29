@@ -15,8 +15,7 @@ namespace Nukito.Test.Scenario
       mock.Behavior.Should().Be(MockBehavior.Strict);
     }
 
-    [NukitoFact]
-    // TODO: add settings to override class wide settings
+    [NukitoFact(MockBehavior = MockBehavior.Loose)]
     public void ReConfiguredMockBehavior(Mock<IA> mock)
     {
       // Assert

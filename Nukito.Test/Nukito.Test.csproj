@@ -57,6 +57,7 @@
     <Compile Include="Scenario\SingletonScenarios.cs" />
     <Compile Include="Scenario\WithDependencyScenarios.cs" />
     <Compile Include="Unit\MoqResolverTest.cs" />
+    <Compile Include="Unit\MyExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nukito\Nukito.csproj">

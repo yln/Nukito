@@ -12,8 +12,7 @@ namespace Nukito.Test.Scenario
       mock.Behavior.Should().Be(MockBehavior.Default).And.Be(MockBehavior.Loose);
     }
 
-    [NukitoFact]
-    [NukitoSettings(MockBehavior = MockBehavior.Strict)]
+    [NukitoFact(MockBehavior = MockBehavior.Strict)]
     public void MockBehaviorCanBeConfigured(Mock<IA> mock)
     {
       // Assert

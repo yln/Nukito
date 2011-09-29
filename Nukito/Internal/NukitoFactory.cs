@@ -1,4 +1,5 @@
-﻿using Ninject.MockingKernel.Moq;
+﻿using System.Collections.Generic;
+using Ninject.MockingKernel.Moq;
 
 namespace Nukito.Internal
 {
@@ -7,7 +8,7 @@ namespace Nukito.Internal
     private readonly INukitoSettings _nukitoSettings;
 
     public NukitoFactory()
-      : this(new NukitoSettingsAttribute())
+      : this(new NukitoSettings(new Dictionary<string, object>()))
     {
     }
 
