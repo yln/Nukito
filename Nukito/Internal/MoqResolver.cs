@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Linq;
 using Moq;
-using Ninject;
-using Ninject.MockingKernel.Moq;
 
 namespace Nukito.Internal
 {
   internal class MoqResolver : IResolver
   {
-    private readonly MoqMockingKernel _mockingKernel = new MoqMockingKernel();
+    private readonly ICreator _creator;
+
+    public MoqResolver(ICreator creator)
+    {
+      _creator = creator;
+    }
 
     public object Get(Type type)
     {
@@ -17,8 +20,8 @@ namespace Nukito.Internal
         throw new NukitoException("The generic version Mock<T> must be used in place of Mock");
       }
       return IsMockType(type)
-               ? GetMock(type)
-               : _mockingKernel.Get(type);
+               ? CreateMock(type)
+               : _creator.Create(type);
     }
 
     internal bool IsInvalidMockType(Type type)
@@ -32,14 +35,13 @@ namespace Nukito.Internal
              && type.GetGenericTypeDefinition() == typeof (Mock<>);
     }
 
-    internal Mock GetMock(Type type)
+    internal Mock CreateMock(Type type)
     {
       Type serviceType = type.GetGenericArguments().Single();
-      var mocked = _mockingKernel.Get(serviceType) as IMocked;
+      var mocked = _creator.Create(serviceType) as IMocked;
       if (mocked == null)
       {
-        string msg = string.Format("Can not create mock for type {0}", serviceType.FullName);
-        throw new NukitoException(msg);
+        throw new NukitoException(string.Format("Can not create mock for type {0}", serviceType.FullName));
       }
       return mocked.Mock;
     }

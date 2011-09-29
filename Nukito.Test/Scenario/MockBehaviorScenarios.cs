@@ -1,5 +1,4 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 
 namespace Nukito.Test.Scenario
@@ -14,21 +13,11 @@ namespace Nukito.Test.Scenario
     }
 
     [NukitoFact]
+    [NukitoSettings(MockBehavior = MockBehavior.Strict)]
     public void MockBehaviorCanBeConfigured(Mock<IA> mock)
     {
       // Assert
       mock.Behavior.Should().Be(MockBehavior.Strict);
-      // TODO: find nice way to allow this
-    }
-
-    public class Bla
-    {
-      [NukitoFact]
-      public void Blub(Mock<IA> mock)
-      {
-        throw new Exception("fail");
-        // TODO: settings on class level
-      }
     }
   }
 }

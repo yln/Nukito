@@ -9,13 +9,11 @@ namespace Nukito.Test.Scenario
 {
   public class ErrorScenarios
   {
-    private static readonly MoqResolver _Resolver = new MoqResolver();
-
     private void ShouldThrowNukitoExceptionForMethodParameterOfType<T>(string exceptionMessage)
     {
       // Arrange
       MethodInfo methodInfo = new Action<T>(RequestInvalidParameter).Method;
-      var factCommand = new NukitoFactCommand(Reflector.Wrap(methodInfo), _Resolver);
+      var factCommand = new NukitoFactCommand(Reflector.Wrap(methodInfo), new NukitoFactory().NewResolver());
 
       // Act
       Action execution = () => factCommand.Execute(this);

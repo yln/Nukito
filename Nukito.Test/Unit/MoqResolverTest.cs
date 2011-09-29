@@ -7,31 +7,31 @@ namespace Nukito.Test.Unit
 {
   public class MoqResolverTest
   {
-    private static readonly MoqResolver _Resolver = new MoqResolver();
+    private readonly MoqResolver _resolver = (MoqResolver) new NukitoFactory().NewResolver();
 
     [NukitoFact]
     public void IsInvalidMockType()
     {
       // Act + Assert
-      _Resolver.IsInvalidMockType(typeof (IA)).Should().BeFalse();
-      _Resolver.IsInvalidMockType(typeof (Mock)).Should().BeTrue();
-      _Resolver.IsInvalidMockType(typeof (Mock<IA>)).Should().BeFalse();
+      _resolver.IsInvalidMockType(typeof (IA)).Should().BeFalse();
+      _resolver.IsInvalidMockType(typeof (Mock)).Should().BeTrue();
+      _resolver.IsInvalidMockType(typeof (Mock<IA>)).Should().BeFalse();
     }
 
     [NukitoFact]
     public void IsMockType()
     {
       // Act + Assert
-      _Resolver.IsMockType(typeof (IA)).Should().BeFalse();
-      _Resolver.IsMockType(typeof (Mock)).Should().BeFalse();
-      _Resolver.IsMockType(typeof (Mock<IA>)).Should().BeTrue();
+      _resolver.IsMockType(typeof (IA)).Should().BeFalse();
+      _resolver.IsMockType(typeof (Mock)).Should().BeFalse();
+      _resolver.IsMockType(typeof (Mock<IA>)).Should().BeTrue();
     }
 
     [NukitoFact]
-    public void GetMock()
+    public void CreateMock()
     {
       // Act
-      Mock mock = _Resolver.GetMock(typeof (Mock<IA>));
+      Mock mock = _resolver.CreateMock(typeof (Mock<IA>));
 
       // Assert
       mock.Should().BeOfType<Mock<IA>>();
@@ -41,7 +41,7 @@ namespace Nukito.Test.Unit
     public void GetMockedInterface()
     {
       // Act
-      object iface = _Resolver.Get(typeof (IA));
+      object iface = _resolver.Get(typeof (IA));
 
       // Assert
       iface.Should().BeMock().And.BeAssignableTo<IA>();
@@ -51,7 +51,7 @@ namespace Nukito.Test.Unit
     public void GetSelfBindableConcreteClass()
     {
       // Act
-      object aClass = _Resolver.Get(typeof (A));
+      object aClass = _resolver.Get(typeof (A));
 
       // Assert
       aClass.Should().BeOfType<A>();
@@ -61,7 +61,7 @@ namespace Nukito.Test.Unit
     public void GetMockType()
     {
       // Act
-      object mock = _Resolver.Get(typeof (Mock<IA>));
+      object mock = _resolver.Get(typeof (Mock<IA>));
 
       // Assert
       mock.Should().BeOfType<Mock<IA>>();
