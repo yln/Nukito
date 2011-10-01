@@ -1,4 +1,4 @@
-﻿namespace Nukito.Internal
+﻿namespace Nukito
 {
   public enum MockVerification
   {
