@@ -12,7 +12,7 @@ namespace Nukito
   {
     public NukitoFactAttribute()
     {
-      Settings = new Dictionary<string, object>();
+      Settings = new NukitoSettings();
     }
 
     protected override IEnumerable<ITestCommand> EnumerateTestCommands(IMethodInfo method)
@@ -25,32 +25,32 @@ namespace Nukito
 
     private INukitoSettings GetSettings(IMethodInfo method)
     {
-      var mergedSettings = new Dictionary<string, object>();
+      var settingsToMerge = new List<NukitoSettings>();
       IAttributeInfo classSettingsAttribute =
         method.Class.GetCustomAttributes(typeof (NukitoSettingsAttribute)).SingleOrDefault();
       if (classSettingsAttribute != null)
       {
         var classSettings = classSettingsAttribute.GetInstance<NukitoSettingsAttribute>().Settings;
-        mergedSettings.AddOrReplaceAll(classSettings);
+        settingsToMerge.Add(classSettings);
       }
       var methodSettings = Settings;
-      mergedSettings.AddOrReplaceAll(methodSettings);
+      settingsToMerge.Add(methodSettings);
 
-      return new NukitoSettings(mergedSettings);
+      return NukitoSettings.Merge(settingsToMerge);
     }
 
-    public IDictionary<string, object> Settings { get; private set; }
+    internal NukitoSettings Settings { get; private set; }
 
     public MockBehavior MockBehavior
     {
       get { throw new NotImplementedException(); }
-      set { Settings[NukitoSettings.MockBehaviorKey] = value; }
+      set { Settings.MockBehavior = value; }
     }
 
     public MockVerification MockVerification
     {
       get { throw new NotImplementedException(); }
-      set { Settings[NukitoSettings.MockVerificationKey] = value; }
+      set { Settings.MockVerification = value; }
     }
   }
 }

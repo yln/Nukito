@@ -1,23 +1,18 @@
 ﻿using System;
-using FluentAssertions;
 using Nukito.Internal;
 using Xunit.Sdk;
 
 namespace Nukito.Test.Utility
 {
-  public static class TestUtility
+  internal static class TestUtility
   {
-    public static void ShouldThrow<T>(Delegate method, string exceptionMessage)
-      where T : Exception
+    public static Action GetTest<T>(Action<T> method, INukitoSettings settings = null)
     {
-      ITestCommand testCommand = GetTestCommand(method);
-      Action execution = () => testCommand.Execute(method.Target);
-      execution.ShouldThrow<T>().WithMessage(exceptionMessage);
-    }
+      IMethodInfo methodInfo = Reflector.Wrap(method.Method);
+      IResolver resolver = new NukitoFactory(settings ?? new NukitoSettings()).NewResolver();
+      var command = new NukitoFactCommand(methodInfo, resolver);
 
-    private static ITestCommand GetTestCommand(Delegate method)
-    {
-      return new NukitoFactCommand(Reflector.Wrap(method.Method), new NukitoFactory().NewResolver());
+      return () => command.Execute(method.Target);
     }
   }
 }

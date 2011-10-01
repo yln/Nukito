@@ -1,17 +1,10 @@
-﻿using System.Collections.Generic;
-using Ninject.MockingKernel.Moq;
+﻿using Ninject.MockingKernel.Moq;
 
 namespace Nukito.Internal
 {
   internal class NukitoFactory
   {
     private readonly INukitoSettings _nukitoSettings;
-
-    // Just for testing purposes
-    public NukitoFactory()
-      : this(new NukitoSettings(new Dictionary<string, object>()))
-    {
-    }
 
     public NukitoFactory(INukitoSettings nukitoSettings)
     {

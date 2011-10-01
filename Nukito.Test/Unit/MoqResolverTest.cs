@@ -8,7 +8,8 @@ namespace Nukito.Test.Unit
 {
   public class MoqResolverTest
   {
-    private readonly MoqResolver _resolver = (MoqResolver) new NukitoFactory().NewResolver();
+    private readonly MoqResolver _resolver =
+      (MoqResolver) new NukitoFactory(new NukitoSettings()).NewResolver();
 
     [NukitoFact]
     public void IsInvalidMockType()

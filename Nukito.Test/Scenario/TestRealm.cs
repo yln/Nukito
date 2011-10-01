@@ -11,6 +11,7 @@
   public interface IB
   {
     void DoSomething();
+    void DoSomethingElse();
   }
 
   public class DepOnInterface

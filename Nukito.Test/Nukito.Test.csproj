@@ -59,7 +59,7 @@
     <Compile Include="Scenario\WithDependencyScenarios.cs" />
     <Compile Include="Utility\TestUtility.cs" />
     <Compile Include="Unit\MoqResolverTest.cs" />
-    <Compile Include="Unit\MyExtensionsTest.cs" />
+    <Compile Include="Unit\NukitoSettingsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nukito\Nukito.csproj">

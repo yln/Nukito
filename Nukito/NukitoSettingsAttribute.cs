@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Moq;
 using Nukito.Internal;
 
@@ -10,21 +9,21 @@ namespace Nukito
   {
     public NukitoSettingsAttribute()
     {
-      Settings = new Dictionary<string, object>();
+      Settings = new NukitoSettings();
     }
 
-    public IDictionary<string, object> Settings { get; private set; }
+    internal NukitoSettings Settings { get; private set; }
 
     public MockBehavior MockBehavior
     {
       get { throw new NotImplementedException(); }
-      set { Settings[NukitoSettings.MockBehaviorKey] = value; }
+      set { Settings.MockBehavior = value; }
     }
 
     public MockVerification MockVerification
     {
       get { throw new NotImplementedException(); }
-      set { Settings[NukitoSettings.MockVerificationKey] = value; }
+      set { Settings.MockVerification = value; }
     }
   }
 }

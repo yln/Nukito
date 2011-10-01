@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using Moq;
+﻿using Moq;
 
 namespace Nukito.Internal
 {
   internal interface INukitoSettingsBuilder
   {
-    IDictionary<string, object> Settings { get; }
-
     MockBehavior MockBehavior { set; }
     MockVerification MockVerification { set; }
   }

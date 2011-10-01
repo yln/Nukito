@@ -1,49 +1,101 @@
-﻿using Moq;
+﻿using System;
+using FluentAssertions;
+using Moq;
 using Nukito.Internal;
+using Nukito.Test.Utility;
 
 namespace Nukito.Test.Scenario
 {
   public class VerifyMockScenarios
   {
-    [NukitoFact]
-    public void DefaultIsVerifyAll(Mock<IB> mock)
+    private void FulfillImplicitAndMarkedExpectations(Mock<IB> mock)
     {
-      // Arrange
-      mock.Setup(b => b.DoSomething());
+      mock.Setup(b => b.DoSomething()).Verifiable();
+      mock.Setup(b => b.DoSomethingElse());
 
-      // Act
       mock.Object.DoSomething();
-
-      // Assert
-      // This test should not throw an exception; all implicit expectations are met
+      mock.Object.DoSomethingElse();
     }
 
-    [NukitoFact(MockVerification = MockVerification.Marked)]
-    public void VerifyMarked(Mock<IB> mock)
+    private void FulfillMarkedExpectations(Mock<IB> mock)
     {
-      // Assert
       mock.Setup(b => b.DoSomething()).Verifiable();
+      mock.Setup(b => b.DoSomethingElse());
 
-      // Act
       mock.Object.DoSomething();
-
-      // Assert
-      // This test should not throw an exception; all marked expectations are met
     }
 
-    [NukitoFact(MockVerification = MockVerification.None)]
-    public void VerificationForSpecifiedExpectations(Mock<IB> mock)
+    private void DoNotFulfillAnyExpectations(Mock<IB> mock)
     {
-      // Arrange
       mock.Setup(b => b.DoSomething()).Verifiable();
-
-      // Act
+      mock.Setup(b => b.DoSomethingElse());
       // Expectations are not fulfilled
-
-      // Assert
-      // This test should not throw an exception; expectations are ignored
     }
 
-    // TODO: add failing tests for cases when expectationsa are not met
+    private void DoNotFulfillImplicitExpectations(Mock<IB> mock)
+    {
+      mock.Setup(b => b.DoSomething());
+      // Expectations are not fulfilled
+    }
+
+    private void DoNotFulfillMarkedExpectations(Mock<IB> mock)
+    {
+      mock.Setup(b => b.DoSomething()).Verifiable();
+      // Expectations are not fulfilled
+    }
+
+    private Action GetTest(Action<Mock<IB>> method, INukitoSettings settings = null)
+    {
+      return TestUtility.GetTest(method, settings);
+    }
+
+
+    [NukitoFact]
+    public void VerifyAllIsDefault()
+    {
+      // Act + Assert
+      GetTest(FulfillImplicitAndMarkedExpectations)
+        .ShouldNotThrow();
+    }
+
+    [NukitoFact]
+    public void VerifyMarkedDoesNotThrowForImplicitExpectations()
+    {
+      // Arrange + Act + Assert
+      GetTest(FulfillMarkedExpectations, new NukitoSettings {MockVerification = MockVerification.Marked})
+        .ShouldNotThrow();
+    }
+
+    [NukitoFact]
+    public void VerifyNone()
+    {
+      // Arrange + Act + Assert
+      GetTest(DoNotFulfillAnyExpectations, new NukitoSettings {MockVerification = MockVerification.None})
+        .ShouldNotThrow();
+    }
+
+    [NukitoFact]
+    public void VerifyAllThrowsForImplicitExpectations()
+    {
+      // Act + Assert
+      GetTest(DoNotFulfillImplicitExpectations)
+        .ShouldThrow<NukitoException>();
+    }
+
+    [NukitoFact]
+    public void VerifyAllThrowsForMarkedExpectations()
+    {
+      // Act + Assert
+      GetTest(DoNotFulfillMarkedExpectations)
+        .ShouldThrow<NukitoException>();
+    }
+
+    [NukitoFact]
+    public void VerifyMarkedThrowsForMarkedExpectations()
+    {
+      // Arrange + Act + Assert
+      GetTest(DoNotFulfillMarkedExpectations, new NukitoSettings {MockVerification = MockVerification.Marked})
+        .ShouldThrow<NukitoException>();
+    }
   }
 }
