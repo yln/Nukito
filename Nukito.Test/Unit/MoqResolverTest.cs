@@ -2,6 +2,7 @@
 using Moq;
 using Nukito.Internal;
 using Nukito.Test.Scenario;
+using Nukito.Test.Utility;
 
 namespace Nukito.Test.Unit
 {

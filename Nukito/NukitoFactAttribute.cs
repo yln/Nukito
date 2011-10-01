@@ -46,5 +46,11 @@ namespace Nukito
       get { throw new NotImplementedException(); }
       set { Settings[NukitoSettings.MockBehaviorKey] = value; }
     }
+
+    public MockVerification MockVerification
+    {
+      get { throw new NotImplementedException(); }
+      set { Settings[NukitoSettings.MockVerificationKey] = value; }
+    }
   }
 }

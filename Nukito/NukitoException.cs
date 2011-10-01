@@ -4,12 +4,12 @@ namespace Nukito
 {
   public class NukitoException : Exception
   {
-    public NukitoException(String message)
+    internal NukitoException(String message)
       : base(message)
     {
     }
 
-    public NukitoException(String message, Exception innerException)
+    internal NukitoException(String message, Exception innerException)
       : base(message, innerException)
     {
     }

@@ -7,6 +7,7 @@ namespace Nukito.Internal
   {
     private readonly INukitoSettings _nukitoSettings;
 
+    // Just for testing purposes
     public NukitoFactory()
       : this(new NukitoSettings(new Dictionary<string, object>()))
     {

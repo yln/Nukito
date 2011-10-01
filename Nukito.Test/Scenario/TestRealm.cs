@@ -10,6 +10,7 @@
 
   public interface IB
   {
+    void DoSomething();
   }
 
   public class DepOnInterface

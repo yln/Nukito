@@ -4,7 +4,7 @@ using Nukito.Internal;
 
 namespace Nukito.Test.Unit
 {
-  internal class MyExtensionsTest
+  public class MyExtensionsTest
   {
     [NukitoFact]
     public void AddOrReplaceAllShouldAdd()

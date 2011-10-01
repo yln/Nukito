@@ -3,7 +3,7 @@ using FluentAssertions;
 using FluentAssertions.Assertions;
 using Moq;
 
-namespace Nukito.Test
+namespace Nukito.Test.Utility
 {
   [DebuggerNonUserCode]
   public static class MockAssertionsExtensions

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Reflection;
-using FluentAssertions;
 using Moq;
-using Nukito.Internal;
-using Xunit.Sdk;
+using Nukito.Test.Utility;
 
 namespace Nukito.Test.Scenario
 {
@@ -11,15 +8,7 @@ namespace Nukito.Test.Scenario
   {
     private void ShouldThrowNukitoExceptionForMethodParameterOfType<T>(string exceptionMessage)
     {
-      // Arrange
-      MethodInfo methodInfo = new Action<T>(RequestInvalidParameter).Method;
-      var factCommand = new NukitoFactCommand(Reflector.Wrap(methodInfo), new NukitoFactory().NewResolver());
-
-      // Act
-      Action execution = () => factCommand.Execute(this);
-
-      // Assert
-      execution.ShouldThrow<NukitoException>().WithMessage(exceptionMessage);
+      TestUtility.ShouldThrow<NukitoException>(new Action<T>(RequestInvalidParameter), exceptionMessage);
     }
 
     private void RequestInvalidParameter<T>(T invalidParameter)
@@ -30,6 +19,7 @@ namespace Nukito.Test.Scenario
     [NukitoFact]
     public void RequestInvalidMockType()
     {
+      // Act + Assert
       ShouldThrowNukitoExceptionForMethodParameterOfType<Mock>(
         "The generic version Mock<T> must be used in place of Mock");
     }
@@ -37,6 +27,7 @@ namespace Nukito.Test.Scenario
     [NukitoFact]
     public void RequestMockForConcreteClass()
     {
+      // Act + Assert
       ShouldThrowNukitoExceptionForMethodParameterOfType<Mock<A>>(
         "Can not create mock for type Nukito.Test.Scenario.A");
     }

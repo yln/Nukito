@@ -8,5 +8,6 @@ namespace Nukito.Internal
     IDictionary<string, object> Settings { get; }
 
     MockBehavior MockBehavior { set; }
+    MockVerification MockVerification { set; }
   }
 }

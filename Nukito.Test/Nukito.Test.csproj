@@ -46,7 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MockAssertionsExtensions.cs" />
+    <Compile Include="Utility\MockAssertionsExtensions.cs" />
     <Compile Include="Scenario\BasicScenarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenario\ClassWideSettingsScenarios.cs" />
@@ -55,7 +55,9 @@
     <Compile Include="Scenario\MockBehaviorScenarios.cs" />
     <Compile Include="Scenario\TestRealm.cs" />
     <Compile Include="Scenario\SingletonScenarios.cs" />
+    <Compile Include="Scenario\VerifyMockScenarios.cs" />
     <Compile Include="Scenario\WithDependencyScenarios.cs" />
+    <Compile Include="Utility\TestUtility.cs" />
     <Compile Include="Unit\MoqResolverTest.cs" />
     <Compile Include="Unit\MyExtensionsTest.cs" />
   </ItemGroup>

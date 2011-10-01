@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
+using Nukito.Test.Utility;
 
 namespace Nukito.Test.Scenario
 {

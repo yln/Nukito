@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Nukito.Test.Utility;
 
 namespace Nukito.Test.Scenario
 {
