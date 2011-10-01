@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Internal\Creator.cs" />
     <Compile Include="Internal\ICreator.cs" />
     <Compile Include="Internal\INukitoSettingsBuilder.cs" />
     <Compile Include="Internal\IResolver.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Internal\MoqResolver.cs" />
     <Compile Include="Internal\NukitoFactCommand.cs" />
     <Compile Include="Internal\NukitoSettings.cs" />
+    <Compile Include="Internal\VisibleForTestingAttribute.cs" />
     <Compile Include="MockVerification.cs" />
     <Compile Include="NukitoException.cs" />
     <Compile Include="NukitoFactAttribute.cs" />

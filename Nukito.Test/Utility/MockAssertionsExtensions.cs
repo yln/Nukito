@@ -8,15 +8,17 @@ namespace Nukito.Test.Utility
   [DebuggerNonUserCode]
   public static class MockAssertionsExtensions
   {
-    public static AndConstraint<ObjectAssertions> BeMock(this ObjectAssertions objectAssertions)
+    public static AndConstraint<ObjectAssertions> BeMock<T>(this ObjectAssertions objectAssertions)
+      where T : class
     {
-      return BeMock(objectAssertions, string.Empty, new object[0]);
+      return BeMock<T>(objectAssertions, string.Empty, new object[0]);
     }
 
-    public static AndConstraint<ObjectAssertions> BeMock(
+    public static AndConstraint<ObjectAssertions> BeMock<T>(
       this ObjectAssertions objectAssertions, string reason, params object[] reasonArgs)
+      where T : class
     {
-      return CheckMock(objectAssertions, true, "mock", reason, reasonArgs);
+      return CheckMock<IMocked<T>>(objectAssertions, true, "mock", reason, reasonArgs);
     }
 
     public static AndConstraint<ObjectAssertions> NotBeMock(this ObjectAssertions objectAssertions)
@@ -27,16 +29,17 @@ namespace Nukito.Test.Utility
     public static AndConstraint<ObjectAssertions> NotBeMock(
       this ObjectAssertions objectAssertions, string reason, params object[] reasonArgs)
     {
-      return CheckMock(objectAssertions, false, "real", reason, reasonArgs);
+      return CheckMock<IMocked>(objectAssertions, false, "real", reason, reasonArgs);
     }
 
-    private static AndConstraint<ObjectAssertions> CheckMock(
+    private static AndConstraint<ObjectAssertions> CheckMock<T>(
       ObjectAssertions objectAssertions, bool shouldBeMock, string objectType, string reason, params object[] reasonArgs)
+      where T : IMocked
     {
       object subject = objectAssertions.Subject;
 
       Execute.Verification
-        .ForCondition(subject is IMocked == shouldBeMock)
+        .ForCondition(subject is T == shouldBeMock)
         .BecauseOf(reason, reasonArgs)
         .FailWith("Expected a " + objectType + " object{reason}, but found {0}", subject.GetType());
 

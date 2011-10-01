@@ -2,71 +2,87 @@
 using Moq;
 using Nukito.Internal;
 using Nukito.Test.Scenario;
-using Nukito.Test.Utility;
 
 namespace Nukito.Test.Unit
 {
   public class MoqResolverTest
   {
-    private readonly MoqResolver _resolver =
-      (MoqResolver) new NukitoFactory(new NukitoSettings()).Resolver;
-
     [NukitoFact]
-    public void IsInvalidMockType()
+    public void IsInvalidMockType(MoqResolver resolver)
     {
       // Act + Assert
-      _resolver.IsInvalidMockType(typeof (IA)).Should().BeFalse();
-      _resolver.IsInvalidMockType(typeof (Mock)).Should().BeTrue();
-      _resolver.IsInvalidMockType(typeof (Mock<IA>)).Should().BeFalse();
+      resolver.IsInvalidMockType(typeof (IA)).Should().BeFalse();
+      resolver.IsInvalidMockType(typeof (Mock)).Should().BeTrue();
+      resolver.IsInvalidMockType(typeof (Mock<IA>)).Should().BeFalse();
     }
 
     [NukitoFact]
-    public void IsMockType()
+    public void IsMockType(MoqResolver resolver)
     {
       // Act + Assert
-      _resolver.IsMockType(typeof (IA)).Should().BeFalse();
-      _resolver.IsMockType(typeof (Mock)).Should().BeFalse();
-      _resolver.IsMockType(typeof (Mock<IA>)).Should().BeTrue();
+      resolver.IsMockType(typeof (IA)).Should().BeFalse();
+      resolver.IsMockType(typeof (Mock)).Should().BeFalse();
+      resolver.IsMockType(typeof (Mock<IA>)).Should().BeTrue();
     }
 
     [NukitoFact]
-    public void CreateMock()
+    public void CreateMock(Mock<ICreator> collaborator, MoqResolver resolver)
     {
+      // Arrange
+      var mock = new Mock<IA>();
+      collaborator.Setup(c => c.Create(typeof (IA))).Returns(mock.Object);
+
       // Act
-      Mock mock = _resolver.CreateMock(typeof (Mock<IA>));
+      object result = resolver.CreateMock(typeof (Mock<IA>));
 
       // Assert
-      mock.Should().BeOfType<Mock<IA>>();
+      result.Should().BeSameAs(mock);
+      collaborator.VerifyAll();
     }
 
     [NukitoFact]
-    public void GetMockedInterface()
+    public void GetMockedInterface(Mock<ICreator> collaborator, MoqResolver resolver)
     {
+      // Arrange
+      var mock = new Mock<IA>();
+      collaborator.Setup(c => c.Create(typeof (IA))).Returns(mock.Object);
+
       // Act
-      object iface = _resolver.Get(typeof (IA));
+      object result = resolver.Get(typeof (IA));
 
       // Assert
-      iface.Should().BeMock().And.BeAssignableTo<IA>();
+      result.Should().BeSameAs(mock.Object);
+      collaborator.VerifyAll();
     }
 
     [NukitoFact]
-    public void GetSelfBindableConcreteClass()
+    public void GetSelfBindableConcreteClass(Mock<ICreator> collaborator, MoqResolver resolver)
     {
+      // Arrange
+      var a = new A();
+      collaborator.Setup(c => c.Create(typeof (A))).Returns(a);
+
       // Act
-      object aClass = _resolver.Get(typeof (A));
+      object result = resolver.Get(typeof (A));
 
       // Assert
-      aClass.Should().BeOfType<A>();
+      result.Should().BeSameAs(a);
+      collaborator.VerifyAll();
     }
 
     [NukitoFact]
-    public void GetMockType()
+    public void GetMockType(Mock<ICreator> collaborator, MoqResolver resolver)
     {
+      // Arrange
+      var mock = new Mock<IA>();
+      collaborator.Setup(c => c.Create(typeof (IA))).Returns(mock.Object);
+
       // Act
-      object mock = _resolver.Get(typeof (Mock<IA>));
+      object result = resolver.Get(typeof (Mock<IA>));
 
       // Assert
-      mock.Should().BeOfType<Mock<IA>>();
+      result.Should().BeSameAs(mock);
+      collaborator.VerifyAll();
     }
   }
 }
