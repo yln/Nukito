@@ -12,7 +12,7 @@ namespace Nukito.Internal
       _mockRepository = mockRepository;
     }
 
-    public Mock CreateMock(Type type)
+    public object CreateMock(Type type)
     {
       throw new NotImplementedException();
     }

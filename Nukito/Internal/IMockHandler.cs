@@ -1,12 +1,11 @@
 ﻿using System;
-using Moq;
 
 namespace Nukito.Internal
 {
   [VisibleForTesting]
   public interface IMockHandler
   {
-    Mock CreateMock(Type type);
+    object CreateMock(Type type);
 
     void VerifyAll();
     void VerifyMarked();

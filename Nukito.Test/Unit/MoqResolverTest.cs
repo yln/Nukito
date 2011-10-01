@@ -37,7 +37,6 @@ namespace Nukito.Test.Unit
 
       // Assert
       result.Should().BeSameAs(mock);
-      collaborator.VerifyAll();
     }
 
     [NukitoFact]
@@ -52,7 +51,6 @@ namespace Nukito.Test.Unit
 
       // Assert
       result.Should().BeSameAs(mock.Object);
-      collaborator.VerifyAll();
     }
 
     [NukitoFact]
@@ -67,7 +65,6 @@ namespace Nukito.Test.Unit
 
       // Assert
       result.Should().BeSameAs(a);
-      collaborator.VerifyAll();
     }
 
     [NukitoFact]
@@ -82,7 +79,6 @@ namespace Nukito.Test.Unit
 
       // Assert
       result.Should().BeSameAs(mock);
-      collaborator.VerifyAll();
     }
   }
 }
