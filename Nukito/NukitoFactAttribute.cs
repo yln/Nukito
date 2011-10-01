@@ -17,7 +17,7 @@ namespace Nukito
 
     protected override IEnumerable<ITestCommand> EnumerateTestCommands(IMethodInfo method)
     {
-      yield return new NukitoFactory(GetSettings(method)).CreateCommand(method);
+      yield return NukitoFactory.CreateCommand(method, GetSettings(method));
     }
 
     private INukitoSettings GetSettings(IMethodInfo method)

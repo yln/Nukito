@@ -1,15 +1,13 @@
-﻿using Moq;
-
-namespace Nukito.Internal
+﻿namespace Nukito.Internal
 {
-  internal class MoqVerifier : IVerifier
+  internal class Verifier : IVerifier
   {
-    private readonly MockRepository _mockRepository;
+    private readonly IMockHandler _mockHandler;
     private readonly MockVerification _mockVerification;
 
-    public MoqVerifier(MockRepository mockRepository, MockVerification mockVerification)
+    public Verifier(IMockHandler mockHandler, MockVerification mockVerification)
     {
-      _mockRepository = mockRepository;
+      _mockHandler = mockHandler;
       _mockVerification = mockVerification;
     }
 
@@ -18,10 +16,10 @@ namespace Nukito.Internal
       switch (_mockVerification)
       {
         case MockVerification.All:
-          _mockRepository.VerifyAll();
+          _mockHandler.VerifyAll();
           break;
         case MockVerification.Marked:
-          _mockRepository.Verify();
+          _mockHandler.VerifyMarked();
           break;
         case MockVerification.None:
           // Do Nothing

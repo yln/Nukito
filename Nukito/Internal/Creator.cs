@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Nukito.Internal
 {
@@ -7,6 +9,14 @@ namespace Nukito.Internal
   public class Creator : ICreator
   {
     private readonly IDictionary<Type, object> _instances = new Dictionary<Type, object>();
+    private readonly IConstructorChooser _constructorChooser;
+    private readonly IMockHandler _mockHandler;
+
+    public Creator(IConstructorChooser constructorChooser, IMockHandler mockHandler)
+    {
+      _constructorChooser = constructorChooser;
+      _mockHandler = mockHandler;
+    }
 
     public object Create(Type type)
     {
@@ -22,7 +32,19 @@ namespace Nukito.Internal
 
     private object CreateNew(Type type)
     {
-      throw new NotImplementedException();
+      if (type.IsClass && !type.IsAbstract)
+      {
+        return CreateNewClass(type);
+      }
+      return _mockHandler.CreateMock(type);
+    }
+
+    private object CreateNewClass(Type type)
+    {
+      ConstructorInfo constructorInfo = _constructorChooser.GetConstructor(type);
+      object[] parameters = constructorInfo.GetParameters().Select(p => Create(p.ParameterType)).ToArray();
+
+      return constructorInfo.Invoke(parameters);
     }
   }
 }
