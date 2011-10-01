@@ -17,10 +17,7 @@ namespace Nukito
 
     protected override IEnumerable<ITestCommand> EnumerateTestCommands(IMethodInfo method)
     {
-      INukitoSettings settings = GetSettings(method);
-      IResolver resolver = new NukitoFactory(settings).NewResolver();
-
-      yield return new NukitoFactCommand(method, resolver);
+      yield return new NukitoFactory(GetSettings(method)).CreateCommand(method);
     }
 
     private INukitoSettings GetSettings(IMethodInfo method)

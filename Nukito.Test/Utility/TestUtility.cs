@@ -9,8 +9,8 @@ namespace Nukito.Test.Utility
     public static Action GetTest<T>(Action<T> method, INukitoSettings settings = null)
     {
       IMethodInfo methodInfo = Reflector.Wrap(method.Method);
-      IResolver resolver = new NukitoFactory(settings ?? new NukitoSettings()).NewResolver();
-      var command = new NukitoFactCommand(methodInfo, resolver);
+      settings = settings ?? new NukitoSettings();
+      ITestCommand command = new NukitoFactory(settings).CreateCommand(methodInfo);
 
       return () => command.Execute(method.Target);
     }

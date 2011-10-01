@@ -56,6 +56,8 @@
     <Compile Include="Internal\INukitoSettingsBuilder.cs" />
     <Compile Include="Internal\IResolver.cs" />
     <Compile Include="Internal\INukitoSettings.cs" />
+    <Compile Include="Internal\IVerifier.cs" />
+    <Compile Include="Internal\MoqVerifier.cs" />
     <Compile Include="Internal\NinjectCreator.cs" />
     <Compile Include="Internal\NukitoFactory.cs" />
     <Compile Include="Internal\MoqResolver.cs" />

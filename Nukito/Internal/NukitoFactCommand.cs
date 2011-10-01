@@ -8,11 +8,13 @@ namespace Nukito.Internal
   internal class NukitoFactCommand : FactCommand
   {
     private readonly IResolver _resolver;
+    private readonly IVerifier _verifier;
 
-    public NukitoFactCommand(IMethodInfo method, IResolver resolver)
+    public NukitoFactCommand(IMethodInfo method, IResolver resolver, IVerifier verifier)
       : base(method)
     {
       _resolver = resolver;
+      _verifier = verifier;
     }
 
     public override MethodResult Execute(object testClass)
@@ -25,7 +27,9 @@ namespace Nukito.Internal
       {
         parameters[i++] = _resolver.Get(parameterType);
       }
+
       testMethod.Invoke(testClass, parameters);
+      _verifier.VerifyMocks();
 
       return new PassedResult(testMethod, DisplayName);
     }

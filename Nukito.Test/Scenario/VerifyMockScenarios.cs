@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentAssertions;
+using FluentAssertions.Assertions;
 using Moq;
 using Nukito.Internal;
 using Nukito.Test.Utility;
@@ -79,7 +80,8 @@ namespace Nukito.Test.Scenario
     {
       // Act + Assert
       GetTest(DoNotFulfillImplicitExpectations)
-        .ShouldThrow<NukitoException>();
+        .ShouldThrow<MockException>()
+        .WithMessage("b => b.DoSomething()", ComparisonMode.Substring);
     }
 
     [NukitoFact]
@@ -87,7 +89,8 @@ namespace Nukito.Test.Scenario
     {
       // Act + Assert
       GetTest(DoNotFulfillMarkedExpectations)
-        .ShouldThrow<NukitoException>();
+        .ShouldThrow<MockException>()
+        .WithMessage("b => b.DoSomething()", ComparisonMode.Substring);
     }
 
     [NukitoFact]
@@ -95,7 +98,8 @@ namespace Nukito.Test.Scenario
     {
       // Arrange + Act + Assert
       GetTest(DoNotFulfillMarkedExpectations, new NukitoSettings {MockVerification = MockVerification.Marked})
-        .ShouldThrow<NukitoException>();
+        .ShouldThrow<MockException>()
+        .WithMessage("b => b.DoSomething()", ComparisonMode.Substring);
     }
   }
 }
