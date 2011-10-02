@@ -4,3 +4,4 @@ obj
 *.suo
 packages
 _ReSharper.*
+*.nupkg
