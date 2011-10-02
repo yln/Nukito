@@ -53,6 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\ConstructorChooser\ConstructorChooserComposite.cs" />
+    <Compile Include="Internal\ConstructorChooser\MaxArgumentsInternalConstructorChooser.cs" />
+    <Compile Include="Internal\ConstructorChooser\MaxArgumentsPublicConstructorChooser.cs" />
+    <Compile Include="Internal\ConstructorChooser\SingleInternalWithInjectAttributeConstructorChooser.cs" />
+    <Compile Include="Internal\ConstructorChooser\ConstructorChooserExtensions.cs" />
+    <Compile Include="Internal\ConstructorChooser\SingleInternalConstructorChooser.cs" />
+    <Compile Include="Internal\ConstructorChooser\SinglePublicConstructorChooser.cs" />
+    <Compile Include="Internal\ConstructorChooser\SinglePublicWithInjectAttributeConstructorChooser.cs" />
     <Compile Include="Internal\Creator.cs" />
     <Compile Include="Internal\IConstructorChooser.cs" />
     <Compile Include="Internal\ICreator.cs" />
