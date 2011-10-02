@@ -46,6 +46,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Unit\ConstructorChooser\ConstructorChooserCompositeTest.cs" />
+    <Compile Include="Unit\ConstructorChooser\ConstructorChooserTest.cs" />
     <Compile Include="Unit\CreatorTest.cs" />
     <Compile Include="Unit\MoqMockHandlerTest.cs" />
     <Compile Include="Utility\MockAssertionsExtensions.cs" />

@@ -12,6 +12,7 @@ namespace Nukito.Internal
     private readonly IConstructorChooser _constructorChooser;
     private readonly IMockHandler _mockHandler;
 
+    // TODO: internal
     public Creator(IConstructorChooser constructorChooser, IMockHandler mockHandler)
     {
       _constructorChooser = constructorChooser;
