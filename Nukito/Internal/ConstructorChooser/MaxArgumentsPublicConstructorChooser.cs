@@ -4,11 +4,16 @@ using System.Reflection;
 
 namespace Nukito.Internal.ConstructorChooser
 {
-  internal class MaxArgumentsPublicConstructorChooser : IConstructorChooser
+  [VisibleForTesting]
+  public class MaxArgumentsPublicConstructorChooser : IConstructorChooser
   {
     public ConstructorInfo GetConstructor(Type type)
     {
       ConstructorInfo[] constructors = type.GetConstructors();
+      if (constructors.Length == 0)
+      {
+        return null;
+      }
       int maxParameters = constructors.Max(ci => ci.GetParameters().Length);
 
       return constructors.SingleOrDefaultForAny(ci => ci.GetParameters().Length == maxParameters);
@@ -16,7 +21,7 @@ namespace Nukito.Internal.ConstructorChooser
 
     public string StrategyDescription
     {
-      get { return "Choose public constructor with most arguments"; }
+      get { return "Public constructor with most arguments"; }
     }
   }
 }

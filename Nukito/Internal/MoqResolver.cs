@@ -9,8 +9,7 @@ namespace Nukito.Internal
   {
     private readonly ICreator _creator;
 
-    // TODO: internal
-    public MoqResolver(ICreator creator)
+    internal MoqResolver(ICreator creator)
     {
       _creator = creator;
     }
