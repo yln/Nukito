@@ -1,4 +1,7 @@
-﻿using FluentAssertions;
+﻿using System.Linq;
+using System.Reflection;
+using FluentAssertions;
+using Moq;
 using Nukito.Internal;
 using Nukito.Test.Scenario;
 using Nukito.Test.Utility;
@@ -7,9 +10,19 @@ namespace Nukito.Test.Unit
 {
   public class CreatorTest
   {
-    [NukitoFact]
-    public void CreateShouldReturnSingletons(Creator creator)
+    private ConstructorInfo GetLoneConstructor<T>()
     {
+      return typeof (T).GetConstructors().Single();
+    }
+
+    [NukitoFact]
+    public void CreateShouldReturnSingletons(
+      Creator creator, Mock<IMockHandler> handler, Mock<IConstructorChooser> chooser)
+    {
+      // Arrange
+      handler.Setup(h => h.CreateMock(typeof (IA))).Returns(new Mock<IA>().Object);
+      chooser.Setup(c => c.GetConstructor(typeof (A))).Returns(GetLoneConstructor<A>());
+
       // Act
       object a0 = creator.Create(typeof (IA));
       object a1 = creator.Create(typeof (A));
@@ -19,31 +32,48 @@ namespace Nukito.Test.Unit
       // Assert
       a0.Should().BeSameAs(a2);
       a1.Should().BeSameAs(a3);
+      handler.Verify(h => h.CreateMock(typeof (IA)), Times.Once());
+      chooser.Verify(c => c.GetConstructor(typeof (A)), Times.Once());
     }
 
     [NukitoFact]
-    public void CreateMockedInterface(Creator creator)
+    public void CreateMockedInterface(Creator creator, Mock<IMockHandler> handler)
     {
+      // Arrange
+      var a = new Mock<IA>().Object;
+      handler.Setup(h => h.CreateMock(typeof (IA))).Returns(a);
+
       // Act
-      object a = creator.Create(typeof (IA));
+      object result = creator.Create(typeof (IA));
 
       // Assert
-      a.Should().BeMock<IA>();
+      result.Should().BeSameAs(a);
     }
 
     [NukitoFact]
-    public void CreateConcreteClass(Creator creator)
+    public void CreateConcreteClass(Creator creator, Mock<IConstructorChooser> chooser)
     {
+      // Arrange
+      chooser.Setup(c => c.GetConstructor(typeof (A))).Returns(GetLoneConstructor<A>());
+
       // Act
-      object a = creator.Create(typeof (A));
+      object result = creator.Create(typeof (A));
 
       // Assert
-      a.Should().BeOfType<A>();
+      result.Should().BeOfType<A>();
     }
 
     [NukitoFact]
-    public void CreateClassWithTransitiveDependencies(Creator creator)
+    public void CreateClassWithTransitiveDependencies(
+      Creator creator, Mock<IMockHandler> handler, Mock<IConstructorChooser> chooser)
     {
+      // Arrange
+      chooser.Setup(c => c.GetConstructor(typeof (TransDep))).Returns(GetLoneConstructor<TransDep>());
+      chooser.Setup(c => c.GetConstructor(typeof (DepOnClass))).Returns(GetLoneConstructor<DepOnClass>());
+      chooser.Setup(c => c.GetConstructor(typeof (A))).Returns(GetLoneConstructor<A>());
+      chooser.Setup(c => c.GetConstructor(typeof (DepOnInterface))).Returns(GetLoneConstructor<DepOnInterface>());
+      handler.Setup(h => h.CreateMock(typeof (IA))).Returns(new Mock<IA>().Object);
+
       // Act
       object result = creator.Create(typeof (TransDep));
 
