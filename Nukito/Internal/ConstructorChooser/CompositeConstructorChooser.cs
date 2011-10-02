@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Nukito.Internal.ConstructorChooser
 {
-  internal class ConstructorChooserComposite : IConstructorChooser
+  internal class CompositeConstructorChooser : IConstructorChooser
   {
     private readonly IConstructorChooser[] _constructorChoosers;
 
-    internal ConstructorChooserComposite(params IConstructorChooser[] constructorChoosers)
+    internal CompositeConstructorChooser(params IConstructorChooser[] constructorChoosers)
     {
       _constructorChoosers = constructorChoosers;
     }

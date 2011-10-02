@@ -16,7 +16,7 @@ namespace Nukito.Test.Unit.ConstructorChooser
     public void GetConstructorWithNoDelegates()
     {
       // Arrange
-      var cc = new ConstructorChooserComposite( /* no delegates */);
+      var cc = new CompositeConstructorChooser( /* no delegates */);
 
       // Act
       Action execution = () => cc.GetConstructor(typeof (A));
@@ -33,7 +33,7 @@ namespace Nukito.Test.Unit.ConstructorChooser
       // Arrange
       var cc0 = new Mock<IConstructorChooser>();
       var cc1 = new Mock<IConstructorChooser>();
-      var cc = new ConstructorChooserComposite(cc0.Object, cc1.Object);
+      var cc = new CompositeConstructorChooser(cc0.Object, cc1.Object);
       ConstructorInfo constructorInfo = typeof (A).GetConstructors().Single();
       cc0.Setup(x => x.GetConstructor(typeof (A))).Returns(constructorInfo);
 
@@ -51,7 +51,7 @@ namespace Nukito.Test.Unit.ConstructorChooser
       // Arrange 
       var cc0 = new Mock<IConstructorChooser>();
       var cc1 = new Mock<IConstructorChooser>();
-      var cc = new ConstructorChooserComposite(cc0.Object, cc1.Object);
+      var cc = new CompositeConstructorChooser(cc0.Object, cc1.Object);
       cc0.Setup(x => x.StrategyDescription).Returns("AAA");
       cc1.Setup(x => x.StrategyDescription).Returns("BBB");
 

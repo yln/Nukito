@@ -36,15 +36,6 @@
     <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.2.2.1.4\lib\net40-Full\Ninject.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject.MockingKernel, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.MockingKernel.2.2.0.6\lib\net40-Full\Ninject.MockingKernel.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject.MockingKernel.Moq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.MockingKernel.Moq.2.2.0.6\lib\net40-Full\Ninject.MockingKernel.Moq.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="xunit">
@@ -52,7 +43,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Internal\ConstructorChooser\ConstructorChooserComposite.cs" />
+    <Compile Include="Internal\ConstructorChooser\CompositeConstructorChooser.cs" />
     <Compile Include="Internal\ConstructorChooser\MaxArgumentsInternalConstructorChooser.cs" />
     <Compile Include="Internal\ConstructorChooser\MaxArgumentsPublicConstructorChooser.cs" />
     <Compile Include="Internal\ConstructorChooser\SingleInternalWithInjectAttributeConstructorChooser.cs" />
@@ -70,7 +61,6 @@
     <Compile Include="Internal\IVerifier.cs" />
     <Compile Include="Internal\MoqMockHandler.cs" />
     <Compile Include="Internal\Verifier.cs" />
-    <Compile Include="Internal\NinjectCreator.cs" />
     <Compile Include="Internal\NukitoFactory.cs" />
     <Compile Include="Internal\MoqResolver.cs" />
     <Compile Include="Internal\NukitoFactCommand.cs" />
