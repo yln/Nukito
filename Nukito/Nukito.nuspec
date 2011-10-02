@@ -8,7 +8,12 @@
     <projectUrl>http://github.com/yln/Nukito</projectUrl>
     <iconUrl>http://raw.github.com/yln/Nukito/master/Nukito/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+	<summary>$description$</summary>
+    <description>
+	  Auto mocking of test method parameters with xUnit and Moq.
+	  Similar to Jukito for Java, see http://code.google.com/p/jukito.
+	  Check out the project site for some usage examples.
+	</description>
     <copyright>Copyright 2011</copyright>
     <tags>Moq xUnit test TDD mock automock di ioc</tags>
   </metadata>
