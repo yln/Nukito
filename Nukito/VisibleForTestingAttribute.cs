@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nukito.Internal
+namespace Nukito
 {
   public class VisibleForTestingAttribute : Attribute
   {
