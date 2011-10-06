@@ -5,8 +5,8 @@ namespace Nukito.Internal
 {
   internal class NukitoSettings : INukitoSettings
   {
-    public const string MockBehaviorKey = "MockBehavior";
-    public const string MockVerificationKey = "MockVerification";
+    private const string MockBehaviorKey = "MockBehavior";
+    private const string MockVerificationKey = "MockVerification";
 
     private readonly IDictionary<string, object> _settings;
 
