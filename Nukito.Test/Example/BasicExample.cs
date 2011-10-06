@@ -4,7 +4,6 @@ using Xunit;
 
 namespace Nukito.Test.Example
 {
-  // TODO
   public class BasicExample
   {
     // This is a simple example for a unit test 
@@ -38,13 +37,7 @@ namespace Nukito.Test.Example
 
       // Assert
       result.Should().Be("Samurai fights with nunchaku");
-    }
-
-    // Mock settings can be configured on class and method level.
-    [NukitoFact(MockBehavior = MockBehavior.Strict, MockVerification = MockVerification.None)]
-    public void MockSettingsCanBeConfigured()
-    {
-      // TODO
+      // Expectations for requested mocks are verified by default.
     }
   }
 }
