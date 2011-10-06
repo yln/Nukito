@@ -6,10 +6,10 @@ namespace Nukito.Test.Example
 {
   public class BasicExample
   {
-    // This is a simple example for a unit test 
+    // This is a simple example for an unit test 
     // using xUnit, Moq and fluent assertions.
     [Fact]
-    public void TestFightWithXunit()
+    public void FightWithoutNukito()
     {
       // Arrange
       var weapon = new Mock<IWeapon>();
@@ -21,13 +21,13 @@ namespace Nukito.Test.Example
 
       // Assert
       result.Should().Be("Samurai fights with katana");
-      weapon.VerifyAll(); // Verifies getter (IWeapon.Name)
+      weapon.VerifyAll(); // Verifies invocation of getter (IWeapon.Name)
     }
 
     // Adding Nukito to the mix results in the following
     // test which is equivalent to the one above.
     [NukitoFact]
-    public void TestFightWithNuktio(Samurai samurai, Mock<IWeapon> weapon)
+    public void FightWithNukito(Samurai samurai, Mock<IWeapon> weapon)
     {
       // Arrange
       weapon.Setup(w => w.Name).Returns("nunchaku");
