@@ -14,6 +14,21 @@ Get it from the [NuGet gallary][nuget].
 ## Show me!
 The following is a basic example for a Nukito unit test. Check out the [Wiki][wiki] for more examples.
 
+  public class Samurai : IWarrior
+  {
+    public IWeapon Weapon { get; private set; }
+
+    public Samurai(IWeapon weapon)
+    {
+      Weapon = weapon;
+    }
+
+    public string Fight()
+    {
+      return "Samurai fights with " + Weapon.Name;
+    }
+  }
+
       // This is a simple example for a unit test 
       // using xUnit, Moq and fluent assertions.
       [Fact]
