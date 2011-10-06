@@ -46,6 +46,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Example\IWarrior.cs" />
+    <Compile Include="Example\ExampleTest.cs" />
+    <Compile Include="Example\IWeapon.cs" />
+    <Compile Include="Example\Samurai.cs" />
     <Compile Include="Unit\ConstructorChooser\ConstructorChooserCompositeTest.cs" />
     <Compile Include="Unit\ConstructorChooser\TestRealm.cs" />
     <Compile Include="Unit\ConstructorChooser\ConstructorChooserTests.cs" />
