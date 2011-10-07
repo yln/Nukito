@@ -3,9 +3,13 @@ using Moq;
 
 namespace Nukito.Example
 {
-  // Mock settings may also be configured on class level.
+  // Mock settings may be configured on class level.
   // The following settings are the defaults.
-  [NukitoSettings(MockBehavior = MockBehavior.Loose, MockVerification = MockVerification.All)]
+  [NukitoSettings(
+    MockBehavior = MockBehavior.Loose,
+    CallBase = false,
+    DefaultValue = DefaultValue.Mock,
+    MockVerification = MockVerification.All)]
   public class SettingsExample
   {
     [NukitoFact]

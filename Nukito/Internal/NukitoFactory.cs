@@ -20,11 +20,11 @@ namespace Nukito.Internal
     private static ITestCommand CreateNuktioCommand(IMethodInfo methodInfo, INukitoSettings settings)
     {
       var constructorChooser = new CompositeConstructorChooser(_ConstructorChoosers);
-      var mockRepository = new MockRepository(settings.MockBehavior);
-      var mockHanlder = new MoqMockHandler(mockRepository);
-      var creator = new Creator(constructorChooser, mockHanlder);
-      var resolver = new MoqResolver(creator);
+      var mockRepository = new MockRepository(settings.MockBehavior)
+                             {CallBase = settings.CallBase, DefaultValue = settings.DefaultValue};
       var mockHandler = new MoqMockHandler(mockRepository);
+      var creator = new Creator(constructorChooser, mockHandler);
+      var resolver = new MoqResolver(creator);
       var verifier = new Verifier(mockHandler, settings.MockVerification);
 
       return new NukitoFactCommand(methodInfo, resolver, verifier);

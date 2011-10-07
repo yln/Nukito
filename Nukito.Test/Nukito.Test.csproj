@@ -58,7 +58,7 @@
     <Compile Include="Scenario\ClassWideSettingsScenarios.cs" />
     <Compile Include="Scenario\ErrorScenarios.cs" />
     <Compile Include="Scenario\InterferenceScenarios.cs" />
-    <Compile Include="Scenario\MockBehaviorScenarios.cs" />
+    <Compile Include="Scenario\MockSettingsScenarios.cs" />
     <Compile Include="Scenario\TestRealm.cs" />
     <Compile Include="Scenario\SingletonScenarios.cs" />
     <Compile Include="Scenario\VerifyMockScenarios.cs" />

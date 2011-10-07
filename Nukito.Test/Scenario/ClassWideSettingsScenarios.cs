@@ -4,23 +4,33 @@ using Moq;
 namespace Nukito.Test.Scenario
 {
   // --- Default Settings ---
-  // MockBehavior -> Loose (and also 'Default')
+  // MockBehavior     -> Loose (and also 'Default')
+  // CallBase         -> false
+  // DefaultValue     -> Mock
   // MockVerification -> All
-  [NukitoSettings(MockBehavior = MockBehavior.Strict, MockVerification = MockVerification.Marked)]
+  [NukitoSettings(
+    MockBehavior = MockBehavior.Strict,
+    CallBase = true,
+    DefaultValue = DefaultValue.Empty,
+    MockVerification = MockVerification.Marked)]
   public class ClassWideSettingsScenarios
   {
     [NukitoFact]
-    public void ClassWideMockBehavior(Mock<IA> mock)
+    public void ClassWideMockSettings(Mock<IA> mock)
     {
       // Assert
       mock.Behavior.Should().Be(MockBehavior.Strict);
+      mock.CallBase.Should().BeTrue();
+      mock.DefaultValue.Should().Be(DefaultValue.Empty);
     }
 
-    [NukitoFact(MockBehavior = MockBehavior.Loose)]
-    public void ReConfiguredMockBehavior(Mock<IA> mock)
+    [NukitoFact(MockBehavior = MockBehavior.Loose, CallBase = false, DefaultValue = DefaultValue.Mock)]
+    public void ReConfiguredMockSettings(Mock<IA> mock)
     {
       // Assert
       mock.Behavior.Should().Be(MockBehavior.Default).And.Be(MockBehavior.Loose);
+      mock.CallBase.Should().BeFalse();
+      mock.DefaultValue.Should().Be(DefaultValue.Mock);
     }
 
     [NukitoFact]

@@ -6,6 +6,8 @@ namespace Nukito.Internal
   internal class NukitoSettings : INukitoSettings
   {
     private const string MockBehaviorKey = "MockBehavior";
+    private const string CallBaseKey = "CallBase";
+    private const string DefaultValueKey = "DefaultValue";
     private const string MockVerificationKey = "MockVerification";
 
     private readonly IDictionary<string, object> _settings;
@@ -43,13 +45,25 @@ namespace Nukito.Internal
     public MockBehavior MockBehavior
     {
       get { return Get(MockBehaviorKey, MockBehavior.Default); }
-      set { _settings[MockBehaviorKey] = value; }
+      internal set { _settings[MockBehaviorKey] = value; }
+    }
+
+    public bool CallBase
+    {
+      get { return Get(CallBaseKey, false); }
+      internal set { _settings[CallBaseKey] = value; }
+    }
+
+    public DefaultValue DefaultValue
+    {
+      get { return Get(DefaultValueKey, DefaultValue.Mock); }
+      internal set { _settings[DefaultValueKey] = value; }
     }
 
     public MockVerification MockVerification
     {
       get { return Get(MockVerificationKey, MockVerification.All); }
-      set { _settings[MockVerificationKey] = value; }
+      internal set { _settings[MockVerificationKey] = value; }
     }
   }
 }

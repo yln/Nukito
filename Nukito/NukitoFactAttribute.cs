@@ -44,6 +44,18 @@ namespace Nukito
       set { Settings.MockBehavior = value; }
     }
 
+    public bool CallBase
+    {
+      get { throw new NotImplementedException(); }
+      set { Settings.CallBase = value; }
+    }
+
+    public DefaultValue DefaultValue
+    {
+      get { throw new NotImplementedException(); }
+      set { Settings.DefaultValue = value; }
+    }
+
     public MockVerification MockVerification
     {
       get { throw new NotImplementedException(); }
