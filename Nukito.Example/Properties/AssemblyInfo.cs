@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("Nukito.Example")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Nukito example project")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Julian Lettner")]
 [assembly: AssemblyProduct("Nukito.Example")]
