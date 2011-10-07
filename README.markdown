@@ -1,17 +1,17 @@
-### Why?
+### Why ?
 Do you like your unit tests concise and readable?
 Do you enjoy using [xUnit][xunit] and [Moq][moq]?
 Then Nukito is for you!
 
-### What?
+### What ?
 Nukito lets you declare the SUT and mocks you need for testing as parameters of your test methods.
 It creates these objects for you which frees you from writing repetitive object creation and mock setup / verification code.
 It is similar to [Jukito][jukito] for Java.
 
-### Where?
+### Where ?
 Get it from the [NuGet gallary][nuget].
 
-### Show me!
+### Show me !
 The following compares a standard xUnit test with a Nukito unit test.
 
 This is a basic example for an unit test using xUnit, Moq and fluent assertions.
