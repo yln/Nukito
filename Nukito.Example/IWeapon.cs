@@ -1,4 +1,4 @@
-namespace Nukito.Test.Example
+namespace Nukito.Example
 {
   public interface IWeapon
   {

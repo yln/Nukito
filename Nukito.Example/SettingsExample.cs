@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Moq;
 
-namespace Nukito.Test.Example
+namespace Nukito.Example
 {
   // Mock settings may also be configured on class level.
   // The following settings are the defaults.

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{34950584-95AC-4639-BA6F-7AFE70DE721D}</ProjectGuid>
+    <ProjectGuid>{DCE06AB2-8C6C-4B0D-8398-0AE3B55A36C3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nukito.Test</RootNamespace>
-    <AssemblyName>Nukito.Test</AssemblyName>
+    <RootNamespace>Nukito.Example</RootNamespace>
+    <AssemblyName>Nukito.Example</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -36,8 +36,11 @@
     <Reference Include="FluentAssertions">
       <HintPath>..\packages\FluentAssertions.1.5.0.0\Lib\.NetFramework 4.0\FluentAssertions.dll</HintPath>
     </Reference>
-    <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Nukito">
+      <HintPath>..\packages\Nukito.0.1\lib\net40\Nukito.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,37 +49,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Unit\ConstructorChooser\ConstructorChooserCompositeTest.cs" />
-    <Compile Include="Unit\ConstructorChooser\TestRealm.cs" />
-    <Compile Include="Unit\ConstructorChooser\ConstructorChooserTests.cs" />
-    <Compile Include="Unit\CreatorTest.cs" />
-    <Compile Include="Unit\MoqMockHandlerTest.cs" />
-    <Compile Include="Unit\NukitoFactoryTest.cs" />
-    <Compile Include="Utility\MockAssertionsExtensions.cs" />
-    <Compile Include="Scenario\BasicScenarios.cs" />
+    <Compile Include="BasicExample.cs" />
+    <Compile Include="IWarrior.cs" />
+    <Compile Include="IWeapon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scenario\ClassWideSettingsScenarios.cs" />
-    <Compile Include="Scenario\ErrorScenarios.cs" />
-    <Compile Include="Scenario\InterferenceScenarios.cs" />
-    <Compile Include="Scenario\MockBehaviorScenarios.cs" />
-    <Compile Include="Scenario\TestRealm.cs" />
-    <Compile Include="Scenario\SingletonScenarios.cs" />
-    <Compile Include="Scenario\VerifyMockScenarios.cs" />
-    <Compile Include="Scenario\WithDependencyScenarios.cs" />
-    <Compile Include="Utility\TestUtility.cs" />
-    <Compile Include="Unit\MoqResolverTest.cs" />
-    <Compile Include="Unit\NukitoSettingsTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Nukito\Nukito.csproj">
-      <Project>{E43B6DA7-6EC2-41EC-BFBA-1214437BC252}</Project>
-      <Name>Nukito</Name>
-    </ProjectReference>
+    <Compile Include="Samurai.cs" />
+    <Compile Include="SettingsExample.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
