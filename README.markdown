@@ -48,8 +48,14 @@ Note that Nukito verifies all setup expectations for requested mocks by default.
       // Assert
       result.Should().Be("Samurai fights with nunchaku");
     }
-    
-Check out the [Wiki][wiki] for more examples.
+
+
+### Examples
+
+* [A basic example](http://github.com/yln/Nukito/blob/master/Nukito.Test/Example/BasicExample.cs)
+* [Configuring mock settings](http://github.com/yln/Nukito/blob/master/Nukito.Test/Example/SettingsExample.cs)
+
+All the examples and the test domain can be found [here][examples].
 
 
 [xunit]: http://xunit.codeplex.com
@@ -57,3 +63,4 @@ Check out the [Wiki][wiki] for more examples.
 [jukito]: http://code.google.com/p/jukito
 [nuget]: http://nuget.org/List/Packages/Nukito
 [wiki]: http://github.com/yln/Nukito/wiki
+[examples]: http://github.com/yln/Nukito/tree/master/Nukito.Test/Example
