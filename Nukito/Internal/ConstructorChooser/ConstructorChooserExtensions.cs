@@ -13,28 +13,32 @@ namespace Nukito.Internal.ConstructorChooser
       {
         if (!e.MoveNext()) return default(TSource);
         TSource result = e.Current;
-        if (!e.MoveNext()) return result;
+        return !e.MoveNext() ? result : default(TSource);
       }
-      return default(TSource);
     }
 
     public static TSource SingleOrDefaultForAny<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
     {
-      TSource result = default(TSource);
-      int count = 0;
-      foreach (TSource element in source)
+      using (IEnumerator<TSource> e = source.GetEnumerator())
       {
-        if (!predicate(element)) continue;
-
-        if (count != 0)
+        TSource result = default(TSource);
+        while (e.MoveNext())
         {
-          result = default(TSource);
-          break;
+          if (predicate(e.Current))
+          {
+            result = e.Current;
+            break;
+          }
         }
-        result = element;
-        count++;
+        while (e.MoveNext())
+        {
+          if (predicate(e.Current))
+          {
+            return default(TSource);
+          }
+        }
+        return result;
       }
-      return result;
     }
 
     public static IEnumerable<ConstructorInfo> GetInternalConstructors(this Type type)
