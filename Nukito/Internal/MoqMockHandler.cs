@@ -6,19 +6,7 @@ namespace Nukito.Internal
 {
   internal class MoqMockHandler : IMockHandler
   {
-    private static readonly object _Locker = new object();
-    private static MethodInfo _createMethod;
-
-    private static MethodInfo CreateMethod
-    {
-      get
-      {
-        lock (_Locker)
-        {
-          return _createMethod ?? (_createMethod = typeof (MockRepository).GetMethod("Create", new Type[0]));
-        }
-      }
-    }
+    private static readonly MethodInfo _CreateMethod = typeof (MockRepository).GetMethod("Create", new Type[0]);
 
     private readonly MockRepository _mockRepository;
 
@@ -29,7 +17,7 @@ namespace Nukito.Internal
 
     public object CreateMock(Type type)
     {
-      MethodInfo methodInfo = CreateMethod.MakeGenericMethod(type);
+      MethodInfo methodInfo = _CreateMethod.MakeGenericMethod(type);
       var mock = (Mock) methodInfo.Invoke(_mockRepository, new object[0]);
       return mock.Object;
     }
