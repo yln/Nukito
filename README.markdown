@@ -52,15 +52,20 @@ Note that Nukito verifies all setup expectations for requested mocks by default.
 
 ### Examples
 
-* [A basic example](http://github.com/yln/Nukito/blob/master/Nukito.Example/BasicExample.cs)
-* [Configuring mock settings](http://github.com/yln/Nukito/blob/master/Nukito.Example/SettingsExample.cs)
+* [A basic example](https://github.com/yln/Nukito/blob/master/Nukito.Example/BasicExample.cs)
+* [Configuring mock settings](https://github.com/yln/Nukito/blob/master/Nukito.Example/SettingsExample.cs)
 
 All the examples and the test domain can be found [here][examples].
 
+### Feedback
+Did you encounter a bug or miss a feature? Create a new [issue][issues].  
+Do you want to give general feedback or help to spread the word?
+Rate or review Nukito at the [NuGet gallary][nuget].
 
-[xunit]: http://xunit.codeplex.com
-[moq]: http://code.google.com/p/moq/wiki/QuickStart
-[jukito]: http://code.google.com/p/jukito
-[nuget]: http://nuget.org/List/Packages/Nukito
-[wiki]: http://github.com/yln/Nukito/wiki
-[examples]: http://github.com/yln/Nukito/tree/master/Nukito.Example
+
+[xunit]:    http://xunit.codeplex.com
+[moq]:      http://code.google.com/p/moq/wiki/QuickStart
+[jukito]:   http://code.google.com/p/jukito
+[nuget]:    http://nuget.org/List/Packages/Nukito
+[issues]:   https://github.com/yln/Nukito/issues
+[examples]: https://github.com/yln/Nukito/tree/master/Nukito.Example
