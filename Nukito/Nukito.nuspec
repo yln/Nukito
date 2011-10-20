@@ -5,8 +5,8 @@
     <version>$version$</version>
     <title>$title$</title>
     <authors>$author$</authors>
-    <projectUrl>http://github.com/yln/Nukito</projectUrl>
-    <iconUrl>http://raw.github.com/yln/Nukito/master/Nukito/logo.png</iconUrl>
+    <projectUrl>https://github.com/yln/Nukito</projectUrl>
+    <iconUrl>https://raw.github.com/yln/Nukito/master/Nukito/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <summary>$description$</summary>
     <description>
