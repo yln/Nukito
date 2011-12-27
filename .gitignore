@@ -2,6 +2,7 @@ bin
 obj
 *.user
 *.suo
-packages
 _ReSharper.*
 *.nupkg
+
+/packages
