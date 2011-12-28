@@ -41,4 +41,9 @@ using System.Runtime.InteropServices;
 
 // Allow testing of internals
 
-[assembly: InternalsVisibleTo("Nukito.Test")]
+[assembly: InternalsVisibleTo("Nukito.Test, PublicKey=" +
+                              "0024000004800000940000000602000000240000525341310004000001000100d53042c942f7d1" +
+                              "61a5c2eadfb589e11ac1d40009f4fe763e1fde0e910ef775e567ec350503698bc25543671cb59d" +
+                              "9b3443a350125d4e4325cb1b45c8e05c4620490d1969a65c76d9612a7f2515151720c09d748bde" +
+                              "a7b5a29838d1e4b52e2a746fd4cedab4f946a6ce67a97f9b097840ecc82a78a55d606c39a6c760" +
+                              "19ee69b7")]

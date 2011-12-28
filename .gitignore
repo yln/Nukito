@@ -4,5 +4,6 @@ obj
 *.suo
 _ReSharper.*
 *.nupkg
+*.snk
 
 /packages
