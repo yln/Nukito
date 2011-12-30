@@ -5,8 +5,7 @@ using System.Reflection;
 
 namespace Nukito.Internal
 {
-  [VisibleForTesting]
-  public class Creator : ICreator
+  internal class Creator : ICreator
   {
     private readonly IDictionary<Type, object> _instances = new Dictionary<Type, object>();
     private readonly IConstructorChooser _constructorChooser;

@@ -2,8 +2,7 @@
 
 namespace Nukito.Internal
 {
-  [VisibleForTesting]
-  public interface ICreator
+  internal interface ICreator
   {
     object Create(Type type);
   }

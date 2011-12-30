@@ -8,7 +8,7 @@ namespace Nukito.Test.Unit
   public class MoqResolverTest
   {
     [NukitoFact]
-    public void IsInvalidMockType(MoqResolver resolver)
+    internal void IsInvalidMockType(MoqResolver resolver)
     {
       // Act + Assert
       resolver.IsInvalidMockType(typeof (IA)).Should().BeFalse();
@@ -17,7 +17,7 @@ namespace Nukito.Test.Unit
     }
 
     [NukitoFact]
-    public void IsMockType(MoqResolver resolver)
+    internal void IsMockType(MoqResolver resolver)
     {
       // Act + Assert
       resolver.IsMockType(typeof (IA)).Should().BeFalse();
@@ -26,7 +26,7 @@ namespace Nukito.Test.Unit
     }
 
     [NukitoFact]
-    public void CreateMock(Mock<ICreator> collaborator, MoqResolver resolver)
+    internal void CreateMock(Mock<ICreator> collaborator, MoqResolver resolver)
     {
       // Arrange
       var mock = new Mock<IA>();
@@ -40,7 +40,7 @@ namespace Nukito.Test.Unit
     }
 
     [NukitoFact]
-    public void GetMockedInterface(Mock<ICreator> collaborator, MoqResolver resolver)
+    internal void GetMockedInterface(Mock<ICreator> collaborator, MoqResolver resolver)
     {
       // Arrange
       var mock = new Mock<IA>();
@@ -54,7 +54,7 @@ namespace Nukito.Test.Unit
     }
 
     [NukitoFact]
-    public void GetSelfBindableConcreteClass(Mock<ICreator> collaborator, MoqResolver resolver)
+    internal void GetSelfBindableConcreteClass(Mock<ICreator> collaborator, MoqResolver resolver)
     {
       // Arrange
       var a = new A();
@@ -68,7 +68,7 @@ namespace Nukito.Test.Unit
     }
 
     [NukitoFact]
-    public void GetMockType(Mock<ICreator> collaborator, MoqResolver resolver)
+    internal void GetMockType(Mock<ICreator> collaborator, MoqResolver resolver)
     {
       // Arrange
       var mock = new Mock<IA>();

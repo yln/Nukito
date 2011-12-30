@@ -6,7 +6,7 @@ namespace Nukito.Test.Unit.ConstructorChooser
   public class ConstructorChooserTests
   {
     [NukitoFact]
-    public void Test0(SinglePublicConstructorChooser cc)
+    internal void Test0(SinglePublicConstructorChooser cc)
     {
       // Act + Assert
       cc.GetConstructor(typeof (DefaultCtor)).Should().NotBeNull();
@@ -17,7 +17,7 @@ namespace Nukito.Test.Unit.ConstructorChooser
     }
 
     [NukitoFact]
-    public void Test1(SinglePublicWithInjectAttributeConstructorChooser cc)
+    internal void Test1(SinglePublicWithInjectAttributeConstructorChooser cc)
     {
       // Act + Assert
       cc.GetConstructor(typeof (DefaultCtor)).Should().BeNull();
@@ -28,7 +28,7 @@ namespace Nukito.Test.Unit.ConstructorChooser
     }
 
     [NukitoFact]
-    public void Test2(MaxArgumentsPublicConstructorChooser cc)
+    internal void Test2(MaxArgumentsPublicConstructorChooser cc)
     {
       // Act + Assert
       cc.GetConstructor(typeof (DefaultCtor)).Should().NotBeNull();

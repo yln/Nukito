@@ -4,8 +4,7 @@ using Moq;
 
 namespace Nukito.Internal
 {
-  [VisibleForTesting]
-  public class MoqResolver : IResolver
+  internal class MoqResolver : IResolver
   {
     private readonly ICreator _creator;
 

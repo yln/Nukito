@@ -16,7 +16,7 @@ namespace Nukito.Test.Unit
     }
 
     [NukitoFact]
-    public void CreateShouldReturnSingletons(
+    internal void CreateShouldReturnSingletons(
       Creator creator, Mock<IMockHandler> handler, Mock<IConstructorChooser> chooser)
     {
       // Arrange
@@ -37,7 +37,7 @@ namespace Nukito.Test.Unit
     }
 
     [NukitoFact]
-    public void CreateMockedInterface(Creator creator, Mock<IMockHandler> handler)
+    internal void CreateMockedInterface(Creator creator, Mock<IMockHandler> handler)
     {
       // Arrange
       var a = new Mock<IA>().Object;
@@ -51,7 +51,7 @@ namespace Nukito.Test.Unit
     }
 
     [NukitoFact]
-    public void CreateConcreteClass(Creator creator, Mock<IConstructorChooser> chooser)
+    internal void CreateConcreteClass(Creator creator, Mock<IConstructorChooser> chooser)
     {
       // Arrange
       chooser.Setup(c => c.GetConstructor(typeof (A))).Returns(GetLoneConstructor<A>());
@@ -64,7 +64,7 @@ namespace Nukito.Test.Unit
     }
 
     [NukitoFact]
-    public void CreateClassWithTransitiveDependencies(
+    internal void CreateClassWithTransitiveDependencies(
       Creator creator, Mock<IMockHandler> handler, Mock<IConstructorChooser> chooser)
     {
       // Arrange

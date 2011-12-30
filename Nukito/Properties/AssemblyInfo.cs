@@ -47,3 +47,9 @@ using System.Runtime.InteropServices;
                               "9b3443a350125d4e4325cb1b45c8e05c4620490d1969a65c76d9612a7f2515151720c09d748bde" +
                               "a7b5a29838d1e4b52e2a746fd4cedab4f946a6ce67a97f9b097840ecc82a78a55d606c39a6c760" +
                               "19ee69b7")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2, PublicKey=" +
+                              "0024000004800000940000000602000000240000525341310004000001000100c547cac37abd99" +
+                              "c8db225ef2f6c8a3602f3b3606cc9891605d02baa56104f4cfc0734aa39b93bf7852f7d9266654" +
+                              "753cc297e7d2edfe0bac1cdcf9f717241550e0a7b191195b7667bb4f64bcb8e2121380fd1d9d46" +
+                              "ad2d92d2d15605093924cceaf74c4861eff62abf69b9291ed0a340e113be11e6a7d3113e92484c" +
+                              "f7045cc7")]

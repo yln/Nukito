@@ -2,8 +2,7 @@
 
 namespace Nukito.Internal
 {
-  [VisibleForTesting]
-  public interface IMockHandler
+  internal interface IMockHandler
   {
     object CreateMock(Type type);
 

@@ -4,8 +4,7 @@ using System.Reflection;
 
 namespace Nukito.Internal.ConstructorChooser
 {
-  [VisibleForTesting]
-  public class SinglePublicWithInjectAttributeConstructorChooser : IConstructorChooser
+  internal class SinglePublicWithInjectAttributeConstructorChooser : IConstructorChooser
   {
     public ConstructorInfo GetConstructor(Type type)
     {

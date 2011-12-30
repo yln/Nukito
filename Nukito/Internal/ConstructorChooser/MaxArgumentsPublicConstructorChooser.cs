@@ -4,8 +4,7 @@ using System.Reflection;
 
 namespace Nukito.Internal.ConstructorChooser
 {
-  [VisibleForTesting]
-  public class MaxArgumentsPublicConstructorChooser : IConstructorChooser
+  internal class MaxArgumentsPublicConstructorChooser : IConstructorChooser
   {
     public ConstructorInfo GetConstructor(Type type)
     {
