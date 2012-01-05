@@ -6,5 +6,4 @@ _ReSharper.*
 *.nupkg
 *.snk
 
-/.nuget
 /packages
