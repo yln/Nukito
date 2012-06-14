@@ -54,6 +54,7 @@
     <Compile Include="IWarrior.cs" />
     <Compile Include="IWeapon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MockRepositoryExample.cs" />
     <Compile Include="Samurai.cs" />
     <Compile Include="SettingsExample.cs" />
   </ItemGroup>
