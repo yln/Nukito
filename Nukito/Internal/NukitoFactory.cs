@@ -6,20 +6,19 @@ namespace Nukito.Internal
 {
   internal static class NukitoFactory
   {
-    private static readonly IConstructorChooser[] _ConstructorChoosers =
+    private static readonly IConstructorChooser[] s_constructorChoosers =
       new IConstructorChooser[]
         {
+          new SingleCtorWithInjectAttributeConstructorChooser(),
           new SinglePublicConstructorChooser(),
-          new SinglePublicWithInjectAttributeConstructorChooser(),
           new MaxArgumentsPublicConstructorChooser(),
           new SingleInternalConstructorChooser(),
-          new SingleInternalWithInjectAttributeConstructorChooser(),
-          new MaxArgumentsInternalConstructorChooser(),
+          new MaxArgumentsInternalConstructorChooser()
         };
 
     private static ITestCommand CreateNuktioCommand(IMethodInfo methodInfo, INukitoSettings settings)
     {
-      var constructorChooser = new CompositeConstructorChooser(_ConstructorChoosers);
+      var constructorChooser = new CompositeConstructorChooser(s_constructorChoosers);
       var mockRepository = new MockRepository(settings.MockBehavior)
                              {CallBase = settings.CallBase, DefaultValue = settings.DefaultValue};
       var mockHandler = new MoqMockHandler(mockRepository);

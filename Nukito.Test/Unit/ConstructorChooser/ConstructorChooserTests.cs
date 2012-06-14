@@ -17,7 +17,7 @@ namespace Nukito.Test.Unit.ConstructorChooser
     }
 
     [NukitoFact]
-    internal void Test1(SinglePublicWithInjectAttributeConstructorChooser cc)
+    internal void Test1(SingleCtorWithInjectAttributeConstructorChooser cc)
     {
       // Act + Assert
       cc.GetConstructor(typeof (DefaultCtor)).Should().BeNull();

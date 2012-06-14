@@ -16,14 +16,14 @@ namespace Nukito.Internal.ConstructorChooser
 
     public ConstructorInfo GetConstructor(Type type)
     {
-      ConstructorInfo constructorInfo = _constructorChoosers
-        .Select(cc => cc.GetConstructor(type)).FirstOrDefault(ci => ci != null);
-      if (constructorInfo != null)
-      {
-        return constructorInfo;
-      }
+      var constructor = _constructorChoosers
+          .Select(cc => cc.GetConstructor(type))
+          .FirstOrDefault(ci => ci != null);
 
-      throw new NukitoException(BuildExceptionMessage(type));
+      if (constructor == null)
+        throw new NukitoException(BuildExceptionMessage(type));
+
+      return constructor;
     }
 
     private string BuildExceptionMessage(Type type)

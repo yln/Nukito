@@ -19,32 +19,13 @@ namespace Nukito.Internal.ConstructorChooser
 
     public static TSource SingleOrDefaultForAny<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
     {
-      using (IEnumerator<TSource> e = source.GetEnumerator())
-      {
-        TSource result = default(TSource);
-        while (e.MoveNext())
-        {
-          if (predicate(e.Current))
-          {
-            result = e.Current;
-            break;
-          }
-        }
-        while (e.MoveNext())
-        {
-          if (predicate(e.Current))
-          {
-            return default(TSource);
-          }
-        }
-        return result;
-      }
+      return source.Where(predicate).SingleOrDefaultForAny();
     }
 
     public static IEnumerable<ConstructorInfo> GetInternalConstructors(this Type type)
     {
       return type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance)
-        .Where(ci => ci.IsAssembly);
+        .Where(ci => ci.IsFamilyOrAssembly || ci.IsAssembly);
     }
   }
 }
