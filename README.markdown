@@ -16,39 +16,41 @@ The following compares a standard xUnit test with a Nukito unit test.
 
 This is a basic example for an unit test using xUnit, Moq and fluent assertions.
 
-    [Fact]
-    public void FightWithoutNukito()
-    {
-      // Arrange
-      var weapon = new Mock<IWeapon>();
-      var samurai = new Samurai(weapon.Object);
-      weapon.Setup(w => w.Name).Returns("katana");
+```c#
+[Fact]
+public void FightWithoutNukito()
+{
+  // Arrange
+  var weapon = new Mock<IWeapon>();
+  var samurai = new Samurai(weapon.Object);
+  weapon.Setup(w => w.Name).Returns("katana");
 
-      // Act
-      string result = samurai.Fight();
+  // Act
+  string result = samurai.Fight();
 
-      // Assert
-      result.Should().Be("Samurai fights with katana");
-      weapon.VerifyAll();  // Verifies invocation of getter (IWeapon.Name)
-    }
-
+  // Assert
+  result.Should().Be("Samurai fights with katana");
+  weapon.VerifyAll();  // Verifies invocation of getter (IWeapon.Name)
+}
+```
 
 Adding Nukito to the mix results in the following equivalent test.
 Note that Nukito verifies all setup expectations for requested mocks by default.
 
-    [NukitoFact]
-    public void FightWithNukito(Samurai samurai, Mock<IWeapon> weapon)
-    {
-      // Arrange
-      weapon.Setup(w => w.Name).Returns("nunchaku");
+```c#
+[NukitoFact]
+public void FightWithNukito(Samurai samurai, Mock<IWeapon> weapon)
+{
+  // Arrange
+  weapon.Setup(w => w.Name).Returns("nunchaku");
 
-      // Act
-      string result = samurai.Fight();
+  // Act
+  string result = samurai.Fight();
 
-      // Assert
-      result.Should().Be("Samurai fights with nunchaku");
-    }
-
+  // Assert
+  result.Should().Be("Samurai fights with nunchaku");
+}
+```
 
 ### Examples
 
