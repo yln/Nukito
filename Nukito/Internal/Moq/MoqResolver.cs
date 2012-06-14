@@ -7,18 +7,22 @@ namespace Nukito.Internal.Moq
   internal class MoqResolver : IResolver
   {
     private readonly ICreator _creator;
+    private readonly MockRepository _mockRepository;
 
-    internal MoqResolver(ICreator creator)
+    internal MoqResolver(ICreator creator, MockRepository mockRepository)
     {
       _creator = creator;
+      _mockRepository = mockRepository;
     }
 
     public object Get(Type type)
     {
       if (IsInvalidMockType(type))
-      {
         throw new NukitoException("The generic version Mock<T> must be used in place of Mock");
-      }
+
+      if (type == typeof (MockRepository))
+        return _mockRepository;
+
       return IsMockType(type)
                ? CreateMock(type)
                : _creator.Create(type);

@@ -24,7 +24,7 @@ namespace Nukito.Internal
                              {CallBase = settings.CallBase, DefaultValue = settings.DefaultValue};
       var mockHandler = new MoqMockHandler(mockRepository);
       var creator = new Creator(constructorChooser, mockHandler);
-      var resolver = new MoqResolver(creator);
+      var resolver = new MoqResolver(creator, mockRepository);
       var verifier = new Verifier(mockHandler, settings.MockVerification);
 
       return new NukitoFactCommand(methodInfo, resolver, verifier);

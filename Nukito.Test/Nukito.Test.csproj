@@ -56,6 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Scenario\RequestMockRepositoryScenarios.cs" />
     <Compile Include="Unit\ConstructorChooser\ConstructorChooserCompositeTest.cs" />
     <Compile Include="Unit\ConstructorChooser\TestRealm.cs" />
     <Compile Include="Unit\ConstructorChooser\ConstructorChooserTests.cs" />
