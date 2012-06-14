@@ -2,11 +2,11 @@
 using System.Reflection;
 using Moq;
 
-namespace Nukito.Internal
+namespace Nukito.Internal.Moq
 {
   internal class MoqMockHandler : IMockHandler
   {
-    private static readonly MethodInfo _CreateMethod = typeof (MockRepository).GetMethod("Create", new Type[0]);
+    private static readonly MethodInfo s_createMethod = typeof (MockRepository).GetMethod("Create", new Type[0]);
 
     private readonly MockRepository _mockRepository;
 
@@ -17,7 +17,7 @@ namespace Nukito.Internal
 
     public object CreateMock(Type type)
     {
-      MethodInfo methodInfo = _CreateMethod.MakeGenericMethod(type);
+      MethodInfo methodInfo = s_createMethod.MakeGenericMethod(type);
       var mock = (Mock) methodInfo.Invoke(_mockRepository, new object[0]);
       return mock.Object;
     }

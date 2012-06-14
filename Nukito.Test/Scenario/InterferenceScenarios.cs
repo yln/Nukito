@@ -6,21 +6,21 @@ namespace Nukito.Test.Scenario
 {
   public class InterferenceScenarios
   {
-    private static readonly ISet<IA> _Interfaces = new HashSet<IA>();
-    private static readonly ISet<A> _Classes = new HashSet<A>();
-    private static readonly ISet<Mock<IA>> _Mocks = new HashSet<Mock<IA>>();
+    private static readonly ISet<IA> s_interfaces = new HashSet<IA>();
+    private static readonly ISet<A> s_classes = new HashSet<A>();
+    private static readonly ISet<Mock<IA>> s_mocks = new HashSet<Mock<IA>>();
 
     private void TestsShouldBeIndependent(IA iface, A clazz, Mock<IA> mock)
     {
       // Assert
-      _Interfaces.Should().NotContain(iface);
-      _Classes.Should().NotContain(clazz);
-      _Mocks.Should().NotContain(mock);
+      s_interfaces.Should().NotContain(iface);
+      s_classes.Should().NotContain(clazz);
+      s_mocks.Should().NotContain(mock);
 
       // Add objects in static collection for next test
-      _Interfaces.Add(iface);
-      _Classes.Add(clazz);
-      _Mocks.Add(mock);
+      s_interfaces.Add(iface);
+      s_classes.Add(clazz);
+      s_mocks.Add(mock);
     }
 
     [NukitoFact]

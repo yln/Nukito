@@ -2,7 +2,7 @@
 using System.Linq;
 using Moq;
 
-namespace Nukito.Internal
+namespace Nukito.Internal.Moq
 {
   internal class MoqResolver : IResolver
   {

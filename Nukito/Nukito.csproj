@@ -65,10 +65,10 @@
     <Compile Include="Internal\IResolver.cs" />
     <Compile Include="Internal\INukitoSettings.cs" />
     <Compile Include="Internal\IVerifier.cs" />
-    <Compile Include="Internal\MoqMockHandler.cs" />
+    <Compile Include="Internal\Moq\MoqMockHandler.cs" />
     <Compile Include="Internal\Verifier.cs" />
     <Compile Include="Internal\NukitoFactory.cs" />
-    <Compile Include="Internal\MoqResolver.cs" />
+    <Compile Include="Internal\Moq\MoqResolver.cs" />
     <Compile Include="Internal\NukitoFactCommand.cs" />
     <Compile Include="Internal\NukitoSettings.cs" />
     <Compile Include="MockVerification.cs" />

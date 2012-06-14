@@ -1,5 +1,6 @@
 ﻿using Moq;
 using Nukito.Internal.ConstructorChooser;
+using Nukito.Internal.Moq;
 using Xunit.Sdk;
 
 namespace Nukito.Internal

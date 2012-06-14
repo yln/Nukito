@@ -1,9 +1,10 @@
 ﻿using FluentAssertions;
 using Moq;
 using Nukito.Internal;
+using Nukito.Internal.Moq;
 using Nukito.Test.Scenario;
 
-namespace Nukito.Test.Unit
+namespace Nukito.Test.Unit.Moq
 {
   public class MoqResolverTest
   {
