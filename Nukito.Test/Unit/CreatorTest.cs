@@ -64,6 +64,16 @@ namespace Nukito.Test.Unit
     }
 
     [NukitoFact]
+    internal void CreateValueType(Creator creator)
+    {
+      // Act
+      var valueType = creator.Create(typeof (double));
+
+      // Assert
+      valueType.Should().Be(0.0);
+    }
+
+    [NukitoFact]
     internal void CreateClassWithTransitiveDependencies(
       Creator creator, Mock<IMockHandler> handler, Mock<IConstructorChooser> chooser)
     {

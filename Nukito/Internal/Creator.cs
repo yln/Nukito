@@ -32,9 +32,11 @@ namespace Nukito.Internal
     private object CreateNew(Type type)
     {
       if (type.IsClass && !type.IsAbstract)
-      {
         return CreateNewClass(type);
-      }
+
+      if (type.IsValueType)
+        return Activator.CreateInstance(type);
+
       return _mockHandler.CreateMock(type);
     }
 
