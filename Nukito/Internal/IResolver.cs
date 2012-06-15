@@ -2,7 +2,7 @@
 
 namespace Nukito.Internal
 {
-  internal interface IResolver
+  public interface IResolver
   {
     object Get(Type type);
   }

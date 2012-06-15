@@ -1,6 +1,6 @@
 ﻿namespace Nukito.Internal
 {
-  internal interface IVerifier
+  public interface IVerifier
   {
     void VerifyMocks();
   }

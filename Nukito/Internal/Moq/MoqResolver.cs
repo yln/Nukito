@@ -4,7 +4,7 @@ using Moq;
 
 namespace Nukito.Internal.Moq
 {
-  internal class MoqResolver : IResolver
+  public class MoqResolver : IResolver
   {
     private readonly ICreator _creator;
     private readonly MockRepository _mockRepository;

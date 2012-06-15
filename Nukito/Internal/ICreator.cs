@@ -2,7 +2,7 @@
 
 namespace Nukito.Internal
 {
-  internal interface ICreator
+  public interface ICreator
   {
     object Create(Type type);
   }

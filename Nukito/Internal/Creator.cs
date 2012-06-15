@@ -5,13 +5,13 @@ using System.Reflection;
 
 namespace Nukito.Internal
 {
-  internal class Creator : ICreator
+  public class Creator : ICreator
   {
     private readonly IDictionary<Type, object> _instances = new Dictionary<Type, object>();
     private readonly IConstructorChooser _constructorChooser;
     private readonly IMockHandler _mockHandler;
 
-    internal Creator(IConstructorChooser constructorChooser, IMockHandler mockHandler)
+    public Creator(IConstructorChooser constructorChooser, IMockHandler mockHandler)
     {
       _constructorChooser = constructorChooser;
       _mockHandler = mockHandler;

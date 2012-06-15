@@ -2,7 +2,7 @@
 
 namespace Nukito.Internal
 {
-  internal interface IMockHandler
+  public interface IMockHandler
   {
     object CreateMock(Type type);
 

@@ -5,7 +5,7 @@ using Xunit.Sdk;
 
 namespace Nukito.Internal
 {
-  internal static class NukitoFactory
+  public static class NukitoFactory
   {
     private static readonly IConstructorChooser[] s_constructorChoosers =
       new IConstructorChooser[]

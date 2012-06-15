@@ -3,7 +3,7 @@ using Moq;
 
 namespace Nukito.Internal
 {
-  internal class NukitoSettings
+  public class NukitoSettings
   {
     private const string MockBehaviorKey = "MockBehavior";
     private const string CallBaseKey = "CallBase";

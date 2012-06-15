@@ -5,7 +5,7 @@ using Xunit.Sdk;
 
 namespace Nukito.Internal
 {
-  internal class NukitoFactCommand : FactCommand
+  public class NukitoFactCommand : FactCommand
   {
     private readonly IResolver _resolver;
     private readonly IVerifier _verifier;

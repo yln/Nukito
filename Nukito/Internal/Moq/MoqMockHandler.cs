@@ -4,7 +4,7 @@ using Moq;
 
 namespace Nukito.Internal.Moq
 {
-  internal class MoqMockHandler : IMockHandler
+  public class MoqMockHandler : IMockHandler
   {
     private static readonly MethodInfo s_createMethod = typeof (MockRepository).GetMethod("Create", new Type[0]);
 

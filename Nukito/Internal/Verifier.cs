@@ -1,6 +1,6 @@
 ﻿namespace Nukito.Internal
 {
-  internal class Verifier : IVerifier
+  public class Verifier : IVerifier
   {
     private readonly IMockHandler _mockHandler;
     private readonly MockVerification _mockVerification;
