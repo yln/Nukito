@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using Nukito.Internal.ConstructorChooser;
 using Xunit.Sdk;
 
 namespace Nukito.Internal
@@ -27,21 +28,34 @@ namespace Nukito.Internal
     {
       Debug.Assert(testClass == null);
       if (base.ShouldCreateInstance)
-        testClass = testMethod.CreateInstance();
+        testClass = CreateInstance(testMethod.Class.Type);
 
-      ParameterInfo[] parameterInfos = testMethod.MethodInfo.GetParameters();
-      var parameters = new object[parameterInfos.Length];
-
-      int i = 0;
-      foreach (Type parameterType in parameterInfos.Select(p => p.ParameterType))
-      {
-        parameters[i++] = _resolver.Get(parameterType);
-      }
-
-      testMethod.Invoke(testClass, parameters);
+      var arguments = CreateArguments(testMethod.MethodInfo);
+      testMethod.Invoke(testClass, arguments);
       _verifier.VerifyMocks();
 
       return new PassedResult(testMethod, DisplayName);
+    }
+
+    private object CreateInstance(Type type)
+    {
+      var constructors = type.GetConstructors();
+      if (constructors.Length != 1)
+        throw new NukitoException("Test class must have a single public constructor");
+
+      var arguments = CreateArguments(constructors.Single());
+      return Activator.CreateInstance(type, arguments);
+    }
+
+    private object[] CreateArguments (MethodBase methodBase)
+    {
+      var parameters = methodBase.GetParameters();
+      var arguments = new object[parameters.Length];
+
+      for (int i = 0; i < parameters.Length; i++)
+        arguments[i] = _resolver.Get(parameters[i].ParameterType);
+
+      return arguments;
     }
   }
 }

@@ -16,7 +16,7 @@ namespace Nukito.Test.Unit
     }
 
     [NukitoFact]
-    public void ShouldReturnStandardFactCommandForMethodsWithoutParameters()
+    public void ShouldReturnNukiotFactCommandForMethodsWithoutParameters()
     {
       // Arrange
       IMethodInfo method = Reflector.Wrap(GetType().GetMethod("Foo"));
@@ -25,7 +25,7 @@ namespace Nukito.Test.Unit
       ITestCommand command = NukitoFactory.CreateCommand(method, new NukitoSettings());
 
       // Assert
-      command.Should().BeOfType<FactCommand>();
+      command.Should().BeOfType<NukitoFactCommand>();
     }
 
     [NukitoFact]
