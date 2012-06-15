@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using Nukito.Internal.ConstructorChooser;
 using Xunit.Sdk;
 
 namespace Nukito.Internal
@@ -43,7 +41,7 @@ namespace Nukito.Internal
       if (constructors.Length != 1)
         throw new NukitoException("Test class must have a single public constructor");
 
-      var arguments = CreateArguments(constructors.Single());
+      var arguments = CreateArguments(constructors[0]);
       return Activator.CreateInstance(type, arguments);
     }
 
