@@ -12,7 +12,7 @@ namespace Nukito.Test.Utility
       settings = settings ?? new NukitoSettings();
       ITestCommand command = NukitoFactory.CreateCommand(methodInfo, settings);
 
-      return () => command.Execute(method.Target);
+      return () => command.Execute(null);
     }
   }
 }

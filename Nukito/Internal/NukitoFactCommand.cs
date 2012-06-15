@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Xunit.Sdk;
@@ -17,8 +18,17 @@ namespace Nukito.Internal
       _verifier = verifier;
     }
 
+    public override bool ShouldCreateInstance
+    {
+      get { return false; }
+    }
+
     public override MethodResult Execute(object testClass)
     {
+      Debug.Assert(testClass == null);
+      if (base.ShouldCreateInstance)
+        testClass = testMethod.CreateInstance();
+
       ParameterInfo[] parameterInfos = testMethod.MethodInfo.GetParameters();
       var parameters = new object[parameterInfos.Length];
 
