@@ -61,9 +61,7 @@
     <Compile Include="Internal\IConstructorChooser.cs" />
     <Compile Include="Internal\ICreator.cs" />
     <Compile Include="Internal\IMockHandler.cs" />
-    <Compile Include="Internal\INukitoSettingsBuilder.cs" />
     <Compile Include="Internal\IResolver.cs" />
-    <Compile Include="Internal\INukitoSettings.cs" />
     <Compile Include="Internal\IVerifier.cs" />
     <Compile Include="Internal\Moq\MoqMockHandler.cs" />
     <Compile Include="Internal\Verifier.cs" />

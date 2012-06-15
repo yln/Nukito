@@ -1,65 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Moq;
 using Nukito.Internal;
 using Xunit;
 using Xunit.Sdk;
 
 namespace Nukito
 {
-  public class NukitoFactAttribute : FactAttribute, INukitoSettingsBuilder
+  public class NukitoFactAttribute : FactAttribute
   {
-    public NukitoFactAttribute()
-    {
-      Settings = new NukitoSettings();
-    }
-
     protected override IEnumerable<ITestCommand> EnumerateTestCommands(IMethodInfo method)
     {
       yield return NukitoFactory.CreateCommand(method, GetSettings(method));
     }
 
-    private INukitoSettings GetSettings(IMethodInfo method)
+    private NukitoSettings GetSettings(IMethodInfo method)
     {
-      var settingsToMerge = new List<NukitoSettings>();
-      IAttributeInfo classSettingsAttribute =
-        method.Class.GetCustomAttributes(typeof (NukitoSettingsAttribute)).SingleOrDefault();
-      if (classSettingsAttribute != null)
-      {
-        var classSettings = classSettingsAttribute.GetInstance<NukitoSettingsAttribute>().Settings;
-        settingsToMerge.Add(classSettings);
-      }
-      var methodSettings = Settings;
-      settingsToMerge.Add(methodSettings);
+      IAttributeInfo classSettingsAttribute = method.Class.GetCustomAttributes (typeof (NukitoSettingsAttribute)).SingleOrDefault ();
+      IAttributeInfo methodSettingsAttribute = method.GetCustomAttributes (typeof (NukitoSettingsAttribute)).SingleOrDefault ();
+
+      var settingsToMerge = new List<NukitoSettings> ();
+      AddSettingsFromAttributeToList(settingsToMerge, classSettingsAttribute);
+      AddSettingsFromAttributeToList(settingsToMerge, methodSettingsAttribute);
 
       return NukitoSettings.Merge(settingsToMerge);
     }
 
-    internal NukitoSettings Settings { get; private set; }
-
-    public MockBehavior MockBehavior
+    private void AddSettingsFromAttributeToList(List<NukitoSettings> settingsToMerge, IAttributeInfo settingsAttributeOrNull)
     {
-      get { throw new NotImplementedException(); }
-      set { Settings.MockBehavior = value; }
-    }
-
-    public bool CallBase
-    {
-      get { throw new NotImplementedException(); }
-      set { Settings.CallBase = value; }
-    }
-
-    public DefaultValue DefaultValue
-    {
-      get { throw new NotImplementedException(); }
-      set { Settings.DefaultValue = value; }
-    }
-
-    public MockVerification MockVerification
-    {
-      get { throw new NotImplementedException(); }
-      set { Settings.MockVerification = value; }
+      if (settingsAttributeOrNull != null)
+        settingsToMerge.Add(settingsAttributeOrNull.GetInstance<NukitoSettingsAttribute>().Settings);
     }
   }
 }

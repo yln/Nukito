@@ -12,7 +12,7 @@ namespace Nukito.Test.Scenario
       mock.Behavior.Should().Be(MockBehavior.Default).And.Be(MockBehavior.Loose);
     }
 
-    [NukitoFact(MockBehavior = MockBehavior.Strict)]
+    [NukitoFact, NukitoSettings (MockBehavior = MockBehavior.Strict)]
     public void MockBehaviorCanBeConfigured(Mock<IA> mock)
     {
       // Assert
@@ -26,7 +26,7 @@ namespace Nukito.Test.Scenario
       mock.CallBase.Should().BeFalse();
     }
 
-    [NukitoFact(CallBase = true)]
+    [NukitoFact, NukitoSettings (CallBase = true)]
     public void CallBaseCanBeConfigured(Mock<IA> mock)
     {
       // Assert
@@ -40,7 +40,7 @@ namespace Nukito.Test.Scenario
       mock.DefaultValue.Should().Be(DefaultValue.Mock);
     }
 
-    [NukitoFact(DefaultValue = DefaultValue.Empty)]
+    [NukitoFact, NukitoSettings (DefaultValue = DefaultValue.Empty)]
     public void DefaultValueCanBeConfigured(Mock<IA> mock)
     {
       // Assert

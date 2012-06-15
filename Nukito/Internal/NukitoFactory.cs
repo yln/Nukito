@@ -17,7 +17,7 @@ namespace Nukito.Internal
           new MaxArgumentsInternalConstructorChooser()
         };
 
-    private static ITestCommand CreateNuktioCommand(IMethodInfo methodInfo, INukitoSettings settings)
+    private static ITestCommand CreateNuktioCommand(IMethodInfo methodInfo, NukitoSettings settings)
     {
       var constructorChooser = new CompositeConstructorChooser(s_constructorChoosers);
       var mockRepository = new MockRepository(settings.MockBehavior)
@@ -30,7 +30,7 @@ namespace Nukito.Internal
       return new NukitoFactCommand(methodInfo, resolver, verifier);
     }
 
-    public static ITestCommand CreateCommand(IMethodInfo methodInfo, INukitoSettings settings)
+    public static ITestCommand CreateCommand(IMethodInfo methodInfo, NukitoSettings settings)
     {
       return methodInfo.MethodInfo.GetParameters().Length == 0
                ? new FactCommand(methodInfo)

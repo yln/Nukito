@@ -28,8 +28,10 @@ namespace Nukito.Example
       warrior.Behavior.Should().Be(MockBehavior.Loose);
     }
 
+
     // Mock settings can be configured on method and class level.
-    [NukitoFact(MockBehavior = MockBehavior.Strict, MockVerification = MockVerification.None)]
+    [NukitoFact]
+    [NukitoSettings(MockBehavior = MockBehavior.Strict, MockVerification = MockVerification.None)]
     public void MockSettingsCanBeConfigured(Mock<IWarrior> warrior)
     {
       // Arrange

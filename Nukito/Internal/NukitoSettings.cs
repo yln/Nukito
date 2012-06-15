@@ -3,7 +3,7 @@ using Moq;
 
 namespace Nukito.Internal
 {
-  internal class NukitoSettings : INukitoSettings
+  internal class NukitoSettings
   {
     private const string MockBehaviorKey = "MockBehavior";
     private const string CallBaseKey = "CallBase";
@@ -21,9 +21,10 @@ namespace Nukito.Internal
     {
       var merged = new NukitoSettings();
 
-      foreach (NukitoSettings additional in settingsToMerge)
+      // Later settings overwrite previous settings
+      foreach (NukitoSettings additionalSettings in settingsToMerge)
       {
-        foreach (KeyValuePair<string, object> additionalEntry in additional._settings)
+        foreach (KeyValuePair<string, object> additionalEntry in additionalSettings._settings)
         {
           merged._settings[additionalEntry.Key] = additionalEntry.Value;
         }

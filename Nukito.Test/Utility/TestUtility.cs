@@ -6,7 +6,7 @@ namespace Nukito.Test.Utility
 {
   internal static class TestUtility
   {
-    public static Action GetTest<T>(Action<T> method, INukitoSettings settings = null)
+    public static Action GetTest<T>(Action<T> method, NukitoSettings settings = null)
     {
       IMethodInfo methodInfo = Reflector.Wrap(method.Method);
       settings = settings ?? new NukitoSettings();

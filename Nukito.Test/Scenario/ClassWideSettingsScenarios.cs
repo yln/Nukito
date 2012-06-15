@@ -24,7 +24,8 @@ namespace Nukito.Test.Scenario
       mock.DefaultValue.Should().Be(DefaultValue.Empty);
     }
 
-    [NukitoFact(MockBehavior = MockBehavior.Loose, CallBase = false, DefaultValue = DefaultValue.Mock)]
+    [NukitoFact]
+    [NukitoSettings (MockBehavior = MockBehavior.Loose, CallBase = false, DefaultValue = DefaultValue.Mock)]
     public void ReConfiguredMockSettings(Mock<IA> mock)
     {
       // Assert
@@ -43,7 +44,7 @@ namespace Nukito.Test.Scenario
       // Implicit expectations (default overwritten by class-wide) are not fullfilled
     }
 
-    [NukitoFact(MockVerification = MockVerification.None)]
+    [NukitoFact, NukitoSettings (MockVerification = MockVerification.None)]
     public void ReConfiguredMockVerification(Mock<IB> mock)
     {
       // Arrange

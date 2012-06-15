@@ -45,7 +45,7 @@ namespace Nukito.Test.Scenario
       // Expectations are not fulfilled
     }
 
-    private Action GetTest(Action<Mock<IB>> method, INukitoSettings settings = null)
+    private Action GetTest(Action<Mock<IB>> method, NukitoSettings settings = null)
     {
       return TestUtility.GetTest(method, settings);
     }

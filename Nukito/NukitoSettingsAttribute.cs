@@ -4,8 +4,8 @@ using Nukito.Internal;
 
 namespace Nukito
 {
-  [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-  public class NukitoSettingsAttribute : Attribute, INukitoSettingsBuilder
+  [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
+  public class NukitoSettingsAttribute : Attribute
   {
     public NukitoSettingsAttribute()
     {
