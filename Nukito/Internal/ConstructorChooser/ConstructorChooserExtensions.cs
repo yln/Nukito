@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Nukito.Internal.ConstructorChooser
 {
-  internal static class ConstructorChooserExtensions
+  public static class ConstructorChooserExtensions
   {
     public static TSource SingleOrDefaultForAny<TSource>(this IEnumerable<TSource> source)
     {

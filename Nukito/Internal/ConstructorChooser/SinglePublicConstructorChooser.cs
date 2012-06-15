@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Nukito.Internal.ConstructorChooser
 {
-  internal class SinglePublicConstructorChooser : IConstructorChooser
+  public class SinglePublicConstructorChooser : IConstructorChooser
   {
     public ConstructorInfo GetConstructor(Type type)
     {

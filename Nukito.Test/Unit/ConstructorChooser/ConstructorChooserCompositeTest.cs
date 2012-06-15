@@ -16,7 +16,7 @@ namespace Nukito.Test.Unit.ConstructorChooser
     public void GetConstructorWithNoDelegates()
     {
       // Arrange
-      var cc = new CompositeConstructorChooser( /* no delegates */);
+      var cc = new CompositeConstructorChooser(/* no delegates */);
 
       // Act
       Action execution = () => cc.GetConstructor(typeof (A));
@@ -31,6 +31,7 @@ namespace Nukito.Test.Unit.ConstructorChooser
     public void GetConstructorShouldReturnFirstNonNull()
     {
       // Arrange
+      // TODO: fix after 'injection' context has been implemented
       var cc0 = new Mock<IConstructorChooser>();
       var cc1 = new Mock<IConstructorChooser>();
       var cc = new CompositeConstructorChooser(cc0.Object, cc1.Object);
@@ -48,7 +49,8 @@ namespace Nukito.Test.Unit.ConstructorChooser
     [NukitoFact]
     public void CompositeDescription()
     {
-      // Arrange 
+      // Arrange
+      // TODO: fix after 'injection' context has been implemented
       var cc0 = new Mock<IConstructorChooser>();
       var cc1 = new Mock<IConstructorChooser>();
       var cc = new CompositeConstructorChooser(cc0.Object, cc1.Object);
