@@ -1,0 +1,6 @@
+0) Increment assembly version number
+1) Make sure that project is built in 'Release' mode.
+2) > nuget update -self
+3) > nuget pack Nukito.csproj -Prop Configuration=Release -Symbols
+4) > nuget push Nukito.X.X.X.0.nupkg <API-KEY>
+5) Create and push version tag

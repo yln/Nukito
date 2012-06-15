@@ -14,7 +14,7 @@
       Similar to Jukito for Java, see http://code.google.com/p/jukito.
       Check out the project site for some usage examples.
     </description>
-    <copyright>Copyright 2011</copyright>
+    <copyright>Copyright 2012</copyright>
     <tags>Moq xUnit test TDD mock automock di ioc</tags>
   </metadata>
 </package>
