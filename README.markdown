@@ -56,6 +56,7 @@ public void FightWithNukito(Samurai samurai, Mock<IWeapon> weapon)
 
 * [A basic example](https://github.com/yln/Nukito/blob/master/Nukito.Example/BasicExample.cs)
 * [Configuring mock settings](https://github.com/yln/Nukito/blob/master/Nukito.Example/SettingsExample.cs)
+* [Requesting the MockRepository](https://github.com/yln/Nukito/blob/master/Nukito.Example/MockRepositoryExample.cs)
 
 All the examples and the test domain can be found [here][examples].
 
