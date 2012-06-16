@@ -42,7 +42,6 @@ namespace Nukito.Test.Unit.Internal
       _command.ShouldCreateInstance.Should().Be(false);
     }
 
-    // TODO: update BasicExample in Readme
     // TODO: update SettingsExample (show that settings can be aplied to ctor aswell)
     [NukitoFact, MockSettings (Behavior = MockBehavior.Strict)]
     public void Execute (Type fakeType)
