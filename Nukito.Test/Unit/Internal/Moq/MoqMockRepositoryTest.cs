@@ -4,7 +4,7 @@ using Nukito.Internal;
 using Nukito.Internal.Moq;
 using Nukito.Test.Scenario;
 
-namespace Nukito.Test.Unit.Moq
+namespace Nukito.Test.Unit.Internal.Moq
 {
   public class MoqMockRepositoryTest
   {
@@ -28,7 +28,7 @@ namespace Nukito.Test.Unit.Moq
     public void CreateMock ()
     {
       // Arrange
-      var settings = new Internal.MockSettings
+      var settings = new MockSettings
       {
         Behavior = MockBehavior.Loose,
         DefaultValue = DefaultValue.Empty,

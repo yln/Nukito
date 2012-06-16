@@ -58,11 +58,11 @@
   <ItemGroup>
     <Compile Include="Scenario\ConstructorInjectionScenarios.cs" />
     <Compile Include="Scenario\RequestMockRepositoryScenarios.cs" />
-    <Compile Include="Unit\ConstructorChooser\ConstructorChooserCompositeTest.cs" />
-    <Compile Include="Unit\ConstructorChooser\TestDomain.cs" />
-    <Compile Include="Unit\ConstructorChooser\ConstructorChooserTests.cs" />
-    <Compile Include="Unit\Moq\MoqMockRepositoryTest.cs" />
-    <Compile Include="Unit\NukitoFactCommandTest.cs" />
+    <Compile Include="Unit\Internal\ConstructorChooser\ConstructorChooserCompositeTest.cs" />
+    <Compile Include="Unit\Internal\ConstructorChooser\TestDomain.cs" />
+    <Compile Include="Unit\Internal\ConstructorChooser\ConstructorChooserTests.cs" />
+    <Compile Include="Unit\Internal\Moq\MoqMockRepositoryTest.cs" />
+    <Compile Include="Unit\Internal\NukitoFactCommandTest.cs" />
     <Compile Include="Utility\MockAssertionsExtensions.cs" />
     <Compile Include="Scenario\BasicScenarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,12 +70,12 @@
     <Compile Include="Scenario\ErrorScenarios.cs" />
     <Compile Include="Scenario\InterferenceScenarios.cs" />
     <Compile Include="Scenario\MockSettingsScenarios.cs" />
-    <Compile Include="Scenario\TestRealm.cs" />
+    <Compile Include="Scenario\TestDomain.cs" />
     <Compile Include="Scenario\SingletonScenarios.cs" />
     <Compile Include="Scenario\VerifyMockScenarios.cs" />
     <Compile Include="Scenario\WithDependencyScenarios.cs" />
     <Compile Include="Utility\TestUtility.cs" />
-    <Compile Include="Unit\MockSettingsTest.cs" />
+    <Compile Include="Unit\Internal\MockSettingsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nukito\Nukito.csproj">
