@@ -10,9 +10,10 @@ namespace Nukito.Test.Unit.Internal.Moq
   {
     private readonly MoqMockRepository _repository;
 
-    public MoqMockRepositoryTest()
+    public MoqMockRepositoryTest (ReflectionHelper reflectionHelper)
     {
-      _repository = new MoqMockRepository();
+      // Integration like test
+      _repository = new MoqMockRepository(reflectionHelper);
     }
 
     [NukitoFact]

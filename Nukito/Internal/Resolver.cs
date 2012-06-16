@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Nukito.Internal
 {
   public class Resolver : IResolver
   {
     private readonly IDictionary<Type, object> _instances = new Dictionary<Type, object>();
-    private readonly IConstructorChooser _constructorChooser;
     private readonly IMockRepository _mockRepository;
+    private readonly IConstructorChooser _constructorChooser;
+    private readonly IReflectionHelper _reflectionHelper;
 
-    public Resolver (IMockRepository mockRepository, IConstructorChooser constructorChooser)
+    public Resolver (IMockRepository mockRepository, IConstructorChooser constructorChooser, IReflectionHelper reflectionHelper)
     {
       _constructorChooser = constructorChooser;
+      _reflectionHelper = reflectionHelper;
       _mockRepository = mockRepository;
     }
 
@@ -50,23 +51,15 @@ namespace Nukito.Internal
           return Activator.CreateInstance (serviceType);
       }
 
-      return _mockRepository.CreateMock (serviceType, request.Context.Settings); // TODO: support non-sealed classes
+      return _mockRepository.CreateMock (serviceType, request.Context.Settings);
     }
 
-    // TODO: Consider creating delegate to speedup reflection.
     private object CreateInstance (Type classType, Context context)
     {
       var constructor = _constructorChooser.GetConstructor (classType);
       var arguments = constructor.GetParameters ().Select (p => Get (p.ParameterType, context)).ToArray ();
 
-      try
-      {
-        return constructor.Invoke (arguments);
-      }
-      catch (TargetInvocationException ex)
-      {
-        throw new NukitoException (ex.InnerException.Message, ex.InnerException);
-      }
+      return _reflectionHelper.InvokeConstructor(constructor, arguments);
     }
   }
 }

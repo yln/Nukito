@@ -9,6 +9,12 @@ namespace Nukito.Internal.Moq
     private static readonly MethodInfo s_createMethod = typeof (MockRepository).GetMethod ("Create", new[] { typeof (MockBehavior) });
 
     private readonly MockRepository _repository = new MockRepository (MockBehavior.Default);
+    private readonly IReflectionHelper _reflectionHelper;
+
+    public MoqMockRepository(IReflectionHelper reflectionHelper)
+    {
+      _reflectionHelper = reflectionHelper;
+    }
 
     public object WrappedRepository
     {
@@ -20,22 +26,13 @@ namespace Nukito.Internal.Moq
       return typeof (MockRepository).IsAssignableFrom (type);
     }
 
-    // TODO: Consider creating delegate to speedup reflection.
     public object CreateMock (Type serviceType, MockSettings settings)
     {
-      var method = s_createMethod.MakeGenericMethod (serviceType);
-      try
-      {
-        var mock = (Mock) method.Invoke (_repository, new object[] { settings.Behavior });
-        mock.DefaultValue = settings.DefaultValue;
-        mock.CallBase = settings.CallBase;
+      var mock = (Mock) _reflectionHelper.InvokeGenericMethod (s_createMethod, new[] { serviceType }, _repository, new object[] { settings.Behavior });
+      mock.DefaultValue = settings.DefaultValue;
+      mock.CallBase = settings.CallBase;
 
-        return mock.Object;
-      }
-      catch (TargetInvocationException ex)
-      {
-        throw new NukitoException(ex.InnerException.Message, ex.InnerException);
-      }
+      return mock.Object;
     }
 
     public void VerifyMocks (MockVerification mockVerification)
