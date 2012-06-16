@@ -7,6 +7,7 @@ namespace Nukito.Internal
   public class NukitoFactCommand : FactCommand
   {
     private readonly ConstructorInfo _constructor;
+    private readonly IReflectionHelper _reflectionHelper;
     private readonly IResolver _resolver;
     private readonly IMockRepository _mockRepository;
     private readonly MockSettings _settings;
@@ -15,6 +16,7 @@ namespace Nukito.Internal
     public NukitoFactCommand (
         IMethodInfo method,
         ConstructorInfo constructor,
+        IReflectionHelper reflectionHelper,
         IResolver resolver,
         IMockRepository mockRepository,
         MockSettings settings,
@@ -22,6 +24,7 @@ namespace Nukito.Internal
       : base(method)
     {
       _constructor = constructor;
+      _reflectionHelper = reflectionHelper;
       _resolver = resolver;
       _mockRepository = mockRepository;
       _settings = settings;
@@ -38,9 +41,8 @@ namespace Nukito.Internal
       Debug.Assert (testClass == null);
       if (base.ShouldCreateInstance)
       {
-        var ctorArguments = CreateArguments(_constructor, _constructorSettings);
-        // TODO: Consider creating delegate to speedup reflection.
-        testClass = _constructor.Invoke(ctorArguments);
+        var ctorArguments = CreateArguments (_constructor, _constructorSettings);
+        testClass = _reflectionHelper.InvokeConstructor (_constructor, ctorArguments);
       }
 
       var arguments = CreateArguments (testMethod.MethodInfo, _settings);

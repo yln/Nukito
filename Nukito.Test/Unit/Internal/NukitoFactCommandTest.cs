@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using FluentAssertions;
 using Moq;
@@ -10,7 +11,9 @@ namespace Nukito.Test.Unit.Internal
   public class NukitoFactCommandTest
   {
     private readonly Mock<IMethodInfo> _method;
+    private readonly Mock<IReflectionHelper> _reflectionHelper;
     private readonly ConstructorInfo _fakeConstructor;
+    private readonly Type _ctorArgType;
     private readonly Mock<IResolver> _resolver;
     private readonly Mock<IMockRepository> _repository;
     private readonly MockSettings _settings;
@@ -18,16 +21,18 @@ namespace Nukito.Test.Unit.Internal
 
     private readonly NukitoFactCommand _command;
 
-    public NukitoFactCommandTest (Mock<IMethodInfo> method, ConstructorInfo fakeConstructor, Mock<IResolver> resolver, Mock<IMockRepository> repository)
+    public NukitoFactCommandTest (Mock<IMethodInfo> method, Mock<IReflectionHelper> reflectionHelper, Mock<IResolver> resolver, Mock<IMockRepository> repository)
     {
       _method = method;
-      _fakeConstructor = fakeConstructor;
+      _fakeConstructor = typeof (string).GetConstructor (new[] { typeof (char[]) });
+      _ctorArgType = _fakeConstructor.GetParameters().Single().ParameterType;
+      _reflectionHelper = reflectionHelper;
       _resolver = resolver;
       _repository = repository;
       _settings = new MockSettings();
       _ctorSettings = new MockSettings();
 
-      _command = new NukitoFactCommand (method.Object, fakeConstructor, resolver.Object, repository.Object, _settings, _ctorSettings);
+      _command = new NukitoFactCommand (method.Object, _fakeConstructor, reflectionHelper.Object, resolver.Object, repository.Object, _settings, _ctorSettings);
     }
 
     [NukitoFact]
@@ -39,38 +44,38 @@ namespace Nukito.Test.Unit.Internal
 
     // TODO: update BasicExample in Readme
     // TODO: update SettingsExample (show that settings can be aplied to ctor aswell)
-    [NukitoFact(Skip = "TODO")]
+    [NukitoFact, MockSettings (Behavior = MockBehavior.Strict)]
     public void Execute (Type fakeType)
     {
-      // Arrange
-      _method.Setup (x => x.Name).Returns ("TestMethodName");
-      _method.Setup (x => x.Class.Type).Returns (fakeType);
-      _resolver.Setup (x => x.Get (It.Is((Request r) => CheckRequest(r, fakeType, false, _ctorSettings))));
+      // Arrange 
+      var fakeCtorArgument = new object();
+      _resolver
+          .Setup (x => x.Get (It.Is ((Request r) => r.Type == _ctorArgType && !r.ForceMockCreation && r.Context.Settings == _ctorSettings)))
+          .Returns(fakeCtorArgument);
+      var fakeTestClass = new object();
+      _reflectionHelper.Setup (x => x.InvokeConstructor (_fakeConstructor, new[] { fakeCtorArgument })).Returns (fakeTestClass);
 
-      _method.Setup(x => x.MethodInfo).Returns(typeof (TestClass).GetMethod("TestMethod"));
-      var fakeArgs = new[] { new object(), new object() };
-      //_resolver.Setup(x => x.Get(typeof (int), It.Is((Context c) => c.Settings == _settings))).Returns(fakeArgs[0]); // TODO default Settings
-      //_resolver.Setup(x => x.Get (typeof (string), It.Is ((Context c) => c.Settings == _settings))).Returns (fakeArgs[1]); // TODO default settings
+      var fakeTestMethod = typeof (TestClass).GetMethod("TestMethod");
+      _method.Setup(x => x.MethodInfo).Returns (fakeTestMethod);
+      var fakeArgs = new[] { new object (), new object () };
+      _resolver
+          .Setup (x => x.Get (It.Is ((Request r) => r.Type == typeof (int) && !r.ForceMockCreation && r.Context.Settings == _settings)))
+          .Returns(fakeArgs[0]);
+      _resolver
+          .Setup (x => x.Get (It.Is ((Request r) => r.Type == typeof (string) && !r.ForceMockCreation && r.Context.Settings == _settings)))
+          .Returns (fakeArgs[1]);
+
+      _method.Setup(x => x.Invoke(fakeTestClass, fakeArgs));
+      _repository.Setup(x => x.VerifyMocks(_settings.Verification));
+
+      _method.Setup (x => x.Name).Returns ("TestMethodName");
       
       // Act
       var result = _command.Execute(null);
 
       // Assert
-      _repository.Verify (x => x.VerifyMocks(MockVerification.All));
-      Func<object[], bool> argChecker = args => { args.Should().Equal (fakeArgs); return true; };
-      _method.Verify (x => x.Invoke (It.IsAny<TestClass> (), It.Is ((object[] args) => argChecker(args))));
-
       result.Should().BeOfType<PassedResult>();
       result.MethodName.Should().Be ("TestMethodName");
-    }
-
-    private static bool CheckRequest(Request request, Type expectedType, bool expectedForceMockCreation, MockSettings expectedSettings)
-    {
-      request.Type.Should ().Be (expectedType);
-      request.ForceMockCreation.Should ().Be (expectedForceMockCreation);
-      request.Context.Settings.Should ().Be (expectedSettings);
-
-      return true;
     }
 
     public class TestClass
