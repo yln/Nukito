@@ -21,6 +21,13 @@ namespace Nukito.Test.Scenario
     }
 
     [NukitoFact]
+    public void SelfBindingForValueType (long l)
+    {
+      // Assert
+      l.Should().Be(0);
+    }
+
+    [NukitoFact]
     public void MockedInterface(IA a)
     {
       // Assert
