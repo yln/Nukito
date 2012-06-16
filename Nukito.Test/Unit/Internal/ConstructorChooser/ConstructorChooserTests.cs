@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Nukito.Internal.ConstructorChooser;
 
-namespace Nukito.Test.Unit.ConstructorChooser
+namespace Nukito.Test.Unit.Internal.ConstructorChooser
 {
   public class ConstructorChooserTests
   {

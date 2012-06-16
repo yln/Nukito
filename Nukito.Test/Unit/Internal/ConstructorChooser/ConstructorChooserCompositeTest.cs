@@ -8,7 +8,7 @@ using Nukito.Internal;
 using Nukito.Internal.ConstructorChooser;
 using Nukito.Test.Scenario;
 
-namespace Nukito.Test.Unit.ConstructorChooser
+namespace Nukito.Test.Unit.Internal.ConstructorChooser
 {
   public class ConstructorChooserCompositeTest
   {

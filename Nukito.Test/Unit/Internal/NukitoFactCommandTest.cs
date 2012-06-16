@@ -5,7 +5,7 @@ using Moq;
 using Nukito.Internal;
 using Xunit.Sdk;
 
-namespace Nukito.Test.Unit
+namespace Nukito.Test.Unit.Internal
 {
   public class NukitoFactCommandTest
   {

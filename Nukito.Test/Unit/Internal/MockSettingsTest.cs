@@ -2,7 +2,7 @@
 using Moq;
 using Nukito.Internal;
 
-namespace Nukito.Test.Unit
+namespace Nukito.Test.Unit.Internal
 {
   public class MockSettingsTest
   {
