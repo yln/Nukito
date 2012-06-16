@@ -14,23 +14,23 @@ Get it from the [NuGet gallary][nuget].
 ### Show me !
 The following compares a standard xUnit test with a Nukito unit test.
 
-This is a basic example for an unit test using xUnit, Moq and fluent assertions.
+This is a basic example for an unit test using xUnit, Moq and Fluent Assertions.
 
 ```c#
 [Fact]
-public void FightWithoutNukito()
+public void FightWithoutNukito ()
 {
   // Arrange
   var weapon = new Mock<IWeapon>();
-  var samurai = new Samurai(weapon.Object);
-  weapon.Setup(w => w.Name).Returns("katana");
+  var samurai = new Samurai (weapon.Object);
+  weapon.Setup (w => w.Name).Returns ("katana");
 
   // Act
   string result = samurai.Fight();
 
   // Assert
-  result.Should().Be("Samurai fights with katana");
-  weapon.VerifyAll();  // Verifies invocation of getter (IWeapon.Name)
+  result.Should().Be ("Samurai fights with katana");
+  weapon.VerifyAll(); // Verifies invocation of getter (IWeapon.Name)
 }
 ```
 
@@ -39,16 +39,16 @@ Note that Nukito verifies all setup expectations for requested mocks by default.
 
 ```c#
 [NukitoFact]
-public void FightWithNukito(Samurai samurai, Mock<IWeapon> weapon)
+public void FightWithNukito (Samurai samurai, Mock<IWeapon> weapon)
 {
   // Arrange
-  weapon.Setup(w => w.Name).Returns("nunchaku");
+  weapon.Setup (w => w.Name).Returns ("nunchaku");
 
   // Act
   string result = samurai.Fight();
 
   // Assert
-  result.Should().Be("Samurai fights with nunchaku");
+  result.Should().Be ("Samurai fights with nunchaku");
 }
 ```
 
