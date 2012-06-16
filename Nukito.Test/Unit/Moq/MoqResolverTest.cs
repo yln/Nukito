@@ -8,75 +8,66 @@ namespace Nukito.Test.Unit.Moq
 {
   public class MoqResolverTest
   {
-    [NukitoFact]
-    internal void IsInvalidMockType(MoqResolver resolver)
+    private readonly Context _context;
+
+    public MoqResolverTest()
     {
-      // Act + Assert
-      resolver.IsInvalidMockType(typeof (IA)).Should().BeFalse();
-      resolver.IsInvalidMockType(typeof (Mock)).Should().BeTrue();
-      resolver.IsInvalidMockType(typeof (Mock<IA>)).Should().BeFalse();
+      _context = new Context (new NukitoSettings());
     }
 
-    [NukitoFact]
-    internal void IsMockType(MoqResolver resolver)
-    {
-      // Act + Assert
-      resolver.IsMockType(typeof (IA)).Should().BeFalse();
-      resolver.IsMockType(typeof (Mock)).Should().BeFalse();
-      resolver.IsMockType(typeof (Mock<IA>)).Should().BeTrue();
-    }
+
 
     [NukitoFact]
-    internal void CreateMock(Mock<ICreator> collaborator, MoqResolver resolver)
+    public void CreateMock(Mock<ICreator> collaborator, MoqResolver mockRepository)
     {
       // Arrange
       var mock = new Mock<IA>();
-      collaborator.Setup(c => c.Create(typeof (IA))).Returns(mock.Object);
+      collaborator.Setup(c => c.GetOrCreate(typeof (IA), _context)).Returns(mock.Object);
 
       // Act
-      object result = resolver.CreateMock(typeof (Mock<IA>));
+      object result = mockRepository.CreateMock(typeof (Mock<IA>), _context);
 
       // Assert
       result.Should().BeSameAs(mock);
     }
 
     [NukitoFact]
-    internal void GetMockedInterface(Mock<ICreator> collaborator, MoqResolver resolver)
+    public void GetMockedInterface(Mock<ICreator> collaborator, MoqResolver mockRepository)
     {
       // Arrange
       var mock = new Mock<IA>();
-      collaborator.Setup(c => c.Create(typeof (IA))).Returns(mock.Object);
+      collaborator.Setup(c => c.GetOrCreate(typeof (IA), _context)).Returns(mock.Object);
 
       // Act
-      object result = resolver.Get(typeof (IA));
+      object result = mockRepository.Get(typeof (IA), _context);
 
       // Assert
       result.Should().BeSameAs(mock.Object);
     }
 
     [NukitoFact]
-    internal void GetSelfBindableConcreteClass(Mock<ICreator> collaborator, MoqResolver resolver)
+    public void GetSelfBindableConcreteClass(Mock<ICreator> collaborator, MoqResolver mockRepository)
     {
       // Arrange
       var a = new A();
-      collaborator.Setup(c => c.Create(typeof (A))).Returns(a);
+      collaborator.Setup(c => c.GetOrCreate(typeof (A), _context)).Returns(a);
 
       // Act
-      object result = resolver.Get(typeof (A));
+      object result = mockRepository.Get(typeof (A), _context);
 
       // Assert
       result.Should().BeSameAs(a);
     }
 
     [NukitoFact]
-    internal void GetMockType(Mock<ICreator> collaborator, MoqResolver resolver)
+    public void GetMockType(Mock<ICreator> collaborator, MoqResolver mockRepository)
     {
       // Arrange
       var mock = new Mock<IA>();
-      collaborator.Setup(c => c.Create(typeof (IA))).Returns(mock.Object);
+      collaborator.Setup(c => c.GetOrCreate(typeof (IA), _context)).Returns(mock.Object);
 
       // Act
-      object result = resolver.Get(typeof (Mock<IA>));
+      object result = mockRepository.Get(typeof (Mock<IA>), _context);
 
       // Assert
       result.Should().BeSameAs(mock);

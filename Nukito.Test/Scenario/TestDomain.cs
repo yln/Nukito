@@ -8,6 +8,8 @@
   {
   }
 
+  public sealed class SealedClass { }
+
   public interface IB
   {
     void DoSomething();

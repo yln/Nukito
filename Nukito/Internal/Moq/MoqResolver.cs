@@ -6,48 +6,33 @@ namespace Nukito.Internal.Moq
 {
   public class MoqResolver : IResolver
   {
-    private readonly ICreator _creator;
-    private readonly MockRepository _mockRepository;
+    private readonly IResolver _resolver;
 
-    internal MoqResolver(ICreator creator, MockRepository mockRepository)
+    public MoqResolver (IResolver resolver)
     {
-      _creator = creator;
-      _mockRepository = mockRepository;
+      _resolver = resolver;
     }
 
-    public object Get(Type type)
+    public object Get (Request request)
     {
-      if (IsInvalidMockType(type))
-        throw new NukitoException("The generic version Mock<T> must be used in place of Mock");
+      var serviceType = GetServiceType (request.Type);
+      var isConfigRequested = serviceType != request.Type;
+      if (isConfigRequested)
+        request = new Request (serviceType, true, request.Context);
 
-      if (type == typeof (MockRepository))
-        return _mockRepository;
-
-      return IsMockType(type)
-               ? CreateMock(type)
-               : _creator.Create(type);
+      var obj = _resolver.Get (request);
+      return isConfigRequested ? ((IMocked) obj).Mock : obj;
     }
 
-    internal bool IsInvalidMockType(Type type)
+    private Type GetServiceType (Type type)
     {
-      return type == typeof (Mock);
-    }
+      if (type == typeof (Mock))
+        throw new NukitoException ("The generic version Mock<T> must be used in place of Mock.");
 
-    internal bool IsMockType(Type type)
-    {
-      return type.IsGenericType
-             && type.GetGenericTypeDefinition() == typeof (Mock<>);
-    }
+      if (type.IsGenericType && type.GetGenericTypeDefinition () == typeof (Mock<>))
+        return type.GetGenericArguments().Single();
 
-    internal Mock CreateMock(Type type)
-    {
-      Type serviceType = type.GetGenericArguments().Single();
-      var mocked = _creator.Create(serviceType) as IMocked;
-      if (mocked == null)
-      {
-        throw new NukitoException(string.Format("Can not create mock for type {0}", serviceType.FullName));
-      }
-      return mocked.Mock;
+      return type;
     }
   }
 }

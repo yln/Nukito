@@ -57,22 +57,21 @@
     <Compile Include="Internal\ConstructorChooser\SingleInternalConstructorChooser.cs" />
     <Compile Include="Internal\ConstructorChooser\SinglePublicConstructorChooser.cs" />
     <Compile Include="Internal\ConstructorChooser\SingleCtorWithInjectAttributeConstructorChooser.cs" />
-    <Compile Include="Internal\Creator.cs" />
-    <Compile Include="Internal\IConstructorChooser.cs" />
-    <Compile Include="Internal\ICreator.cs" />
-    <Compile Include="Internal\IMockHandler.cs" />
-    <Compile Include="Internal\IResolver.cs" />
-    <Compile Include="Internal\IVerifier.cs" />
-    <Compile Include="Internal\Moq\MoqMockHandler.cs" />
-    <Compile Include="Internal\Verifier.cs" />
-    <Compile Include="Internal\NukitoFactory.cs" />
+    <Compile Include="Internal\Context.cs" />
     <Compile Include="Internal\Moq\MoqResolver.cs" />
+    <Compile Include="Internal\Request.cs" />
+    <Compile Include="Internal\Resolver.cs" />
+    <Compile Include="Internal\IConstructorChooser.cs" />
+    <Compile Include="Internal\IMockRepository.cs" />
+    <Compile Include="Internal\IResolver.cs" />
+    <Compile Include="Internal\NukitoFactory.cs" />
+    <Compile Include="Internal\Moq\MoqMockRepository.cs" />
     <Compile Include="Internal\NukitoFactCommand.cs" />
-    <Compile Include="Internal\NukitoSettings.cs" />
+    <Compile Include="Internal\MockSettings.cs" />
     <Compile Include="MockVerification.cs" />
     <Compile Include="NukitoException.cs" />
     <Compile Include="NukitoFactAttribute.cs" />
-    <Compile Include="NukitoSettingsAttribute.cs" />
+    <Compile Include="MockSettingsAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -26,7 +26,7 @@ namespace Nukito.Example
     }
 
     // Do not verify expectations from the constructor.
-    [NukitoFact, NukitoSettings(MockVerification = MockVerification.Marked)]
+    [NukitoFact, MockSettings (Verification = MockVerification.Marked)]
     public void FightAndIgnoreCommonSetup()
     {
       // Do something completely different ...

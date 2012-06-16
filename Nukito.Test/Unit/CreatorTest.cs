@@ -10,87 +10,92 @@ namespace Nukito.Test.Unit
 {
   public class CreatorTest
   {
-    private ConstructorInfo GetLoneConstructor<T>()
+    private readonly Context _context;
+
+    public CreatorTest()
     {
-      return typeof (T).GetConstructors().Single();
+      _context = new Context(new NukitoSettings());
     }
 
     [NukitoFact]
-    internal void CreateShouldReturnSingletons(
-      Creator creator, Mock<IMockHandler> handler, Mock<IConstructorChooser> chooser)
+    public void CreateShouldReturnSingletons(Resolver resolver, Mock<IRepository> handler, Mock<IConstructorChooser> chooser)
     {
       // Arrange
-      handler.Setup(h => h.CreateMock(typeof (IA))).Returns(new Mock<IA>().Object);
+      handler.Setup(h => h.CreateMock(typeof (IA), _context)).Returns(new Mock<IA>().Object);
       chooser.Setup(c => c.GetConstructor(typeof (A))).Returns(GetLoneConstructor<A>());
 
       // Act
-      object a0 = creator.Create(typeof (IA));
-      object a1 = creator.Create(typeof (A));
-      object a2 = creator.Create(typeof (IA));
-      object a3 = creator.Create(typeof (A));
+      object a0 = resolver.GetOrCreate(typeof (IA), _context);
+      object a1 = resolver.GetOrCreate(typeof (A), _context);
+      object a2 = resolver.GetOrCreate(typeof (IA), _context);
+      object a3 = resolver.GetOrCreate(typeof (A), _context);
 
       // Assert
       a0.Should().BeSameAs(a2);
       a1.Should().BeSameAs(a3);
-      handler.Verify(h => h.CreateMock(typeof (IA)), Times.Once());
+      handler.Verify(h => h.CreateMock(typeof (IA), _context), Times.Once());
       chooser.Verify(c => c.GetConstructor(typeof (A)), Times.Once());
     }
 
     [NukitoFact]
-    internal void CreateMockedInterface(Creator creator, Mock<IMockHandler> handler)
+    public void CreateMockedInterface(Resolver resolver, Mock<IRepository> handler)
     {
       // Arrange
       var a = new Mock<IA>().Object;
-      handler.Setup(h => h.CreateMock(typeof (IA))).Returns(a);
+      handler.Setup(h => h.CreateMock(typeof (IA), _context)).Returns(a);
 
       // Act
-      object result = creator.Create(typeof (IA));
+      object result = resolver.GetOrCreate(typeof (IA), _context);
 
       // Assert
       result.Should().BeSameAs(a);
     }
 
     [NukitoFact]
-    internal void CreateConcreteClass(Creator creator, Mock<IConstructorChooser> chooser)
+    public void CreateConcreteClass(Resolver resolver, Mock<IConstructorChooser> chooser)
     {
       // Arrange
       chooser.Setup(c => c.GetConstructor(typeof (A))).Returns(GetLoneConstructor<A>());
 
       // Act
-      object result = creator.Create(typeof (A));
+      object result = resolver.GetOrCreate(typeof (A), _context);
 
       // Assert
       result.Should().BeOfType<A>();
     }
 
     [NukitoFact]
-    internal void CreateValueType(Creator creator)
+    public void CreateValueType(Resolver resolver)
     {
       // Act
-      var valueType = creator.Create(typeof (double));
+      var valueType = resolver.GetOrCreate(typeof (double), _context);
 
       // Assert
       valueType.Should().Be(0.0);
     }
 
     [NukitoFact]
-    internal void CreateClassWithTransitiveDependencies(
-      Creator creator, Mock<IMockHandler> handler, Mock<IConstructorChooser> chooser)
+    public void CreateClassWithTransitiveDependencies(Resolver resolver, Mock<IRepository> handler, Mock<IConstructorChooser> chooser)
     {
       // Arrange
       chooser.Setup(c => c.GetConstructor(typeof (TransDep))).Returns(GetLoneConstructor<TransDep>());
       chooser.Setup(c => c.GetConstructor(typeof (DepOnClass))).Returns(GetLoneConstructor<DepOnClass>());
       chooser.Setup(c => c.GetConstructor(typeof (A))).Returns(GetLoneConstructor<A>());
       chooser.Setup(c => c.GetConstructor(typeof (DepOnInterface))).Returns(GetLoneConstructor<DepOnInterface>());
-      handler.Setup(h => h.CreateMock(typeof (IA))).Returns(new Mock<IA>().Object);
+      handler.Setup(h => h.CreateMock(typeof (IA), _context)).Returns(new Mock<IA>().Object);
 
       // Act
-      object result = creator.Create(typeof (TransDep));
+      object result = resolver.GetOrCreate(typeof (TransDep), _context);
 
       // Assert
       var transDep = (TransDep) result;
       transDep.DepOnInterface.A.Should().BeMock<IA>();
       transDep.DepOnClass.A.Should().NotBeMock();
+    }
+
+    private ConstructorInfo GetLoneConstructor<T> ()
+    {
+      return typeof (T).GetConstructors ().Single ();
     }
   }
 }

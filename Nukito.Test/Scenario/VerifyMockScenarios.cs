@@ -45,9 +45,9 @@ namespace Nukito.Test.Scenario
       // Expectations are not fulfilled
     }
 
-    private Action GetTest(Action<Mock<IB>> method, NukitoSettings settings = null)
+    private Action GetTest(Action<Mock<IB>> method, MockSettings settings = null)
     {
-      return TestUtility.GetTest(method, settings);
+      return TestUtility.GetTest(method, settings: settings);
     }
 
 
@@ -63,7 +63,7 @@ namespace Nukito.Test.Scenario
     public void VerifyMarkedDoesNotThrowForImplicitExpectations()
     {
       // Arrange + Act + Assert
-      GetTest(FulfillMarkedExpectations, new NukitoSettings {MockVerification = MockVerification.Marked})
+      GetTest(FulfillMarkedExpectations, new MockSettings {Verification = MockVerification.Marked})
         .ShouldNotThrow();
     }
 
@@ -71,7 +71,7 @@ namespace Nukito.Test.Scenario
     public void VerifyNone()
     {
       // Arrange + Act + Assert
-      GetTest(DoNotFulfillAnyExpectations, new NukitoSettings {MockVerification = MockVerification.None})
+      GetTest(DoNotFulfillAnyExpectations, new MockSettings {Verification = MockVerification.None})
         .ShouldNotThrow();
     }
 
@@ -97,7 +97,7 @@ namespace Nukito.Test.Scenario
     public void VerifyMarkedThrowsForMarkedExpectations()
     {
       // Arrange + Act + Assert
-      GetTest(DoNotFulfillMarkedExpectations, new NukitoSettings {MockVerification = MockVerification.Marked})
+      GetTest(DoNotFulfillMarkedExpectations, new MockSettings {Verification = MockVerification.Marked})
         .ShouldThrow<MockException>()
         .WithMessage("b => b.DoSomething()", ComparisonMode.Substring);
     }

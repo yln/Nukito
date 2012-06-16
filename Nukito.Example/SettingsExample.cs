@@ -5,11 +5,11 @@ namespace Nukito.Example
 {
   // Mock settings may be configured on class level.
   // The following settings are the defaults.
-  [NukitoSettings(
-    MockBehavior = MockBehavior.Loose,
+  [MockSettings(
+    Behavior = MockBehavior.Loose,
     CallBase = false,
     DefaultValue = DefaultValue.Mock,
-    MockVerification = MockVerification.All)]
+    Verification = MockVerification.All)]
   public class SettingsExample
   {
     [NukitoFact]
@@ -31,7 +31,7 @@ namespace Nukito.Example
 
     // Mock settings can be configured on method and class level.
     [NukitoFact]
-    [NukitoSettings(MockBehavior = MockBehavior.Strict, MockVerification = MockVerification.None)]
+    [MockSettings(Behavior = MockBehavior.Strict, Verification = MockVerification.None)]
     public void MockSettingsCanBeConfigured(Mock<IWarrior> warrior)
     {
       // Arrange

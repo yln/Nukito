@@ -4,19 +4,28 @@ using Moq;
 namespace Nukito.Test.Scenario
 {
   // --- Default Settings ---
-  // MockBehavior     -> Loose (and also 'Default')
-  // CallBase         -> false
-  // DefaultValue     -> Mock
-  // MockVerification -> All
-  [NukitoSettings(
-    MockBehavior = MockBehavior.Strict,
+  // Behavior     -> Loose (and also 'Default')
+  // CallBase     -> false
+  // DefaultValue -> Mock
+  // Verification -> All
+  [MockSettings(
+    Behavior = MockBehavior.Strict,
     CallBase = true,
     DefaultValue = DefaultValue.Empty,
-    MockVerification = MockVerification.Marked)]
+    Verification = MockVerification.Marked)]
   public class ClassWideSettingsScenarios
   {
+    [MockSettings (Behavior = MockBehavior.Loose, CallBase = false, DefaultValue = DefaultValue.Mock)]
+    public ClassWideSettingsScenarios(Mock<IA> mock)
+    {
+      // Assert
+      mock.Behavior.Should ().Be (MockBehavior.Default).And.Be (MockBehavior.Loose);
+      mock.CallBase.Should ().BeFalse ();
+      mock.DefaultValue.Should ().Be (DefaultValue.Mock);
+    }
+
     [NukitoFact]
-    public void ClassWideMockSettings(Mock<IA> mock)
+    public void ClassWideMockSettings(Mock<IB> mock)
     {
       // Assert
       mock.Behavior.Should().Be(MockBehavior.Strict);
@@ -25,13 +34,13 @@ namespace Nukito.Test.Scenario
     }
 
     [NukitoFact]
-    [NukitoSettings (MockBehavior = MockBehavior.Loose, CallBase = false, DefaultValue = DefaultValue.Mock)]
-    public void ReConfiguredMockSettings(Mock<IA> mock)
+    [MockSettings (Behavior = MockBehavior.Loose, DefaultValue = DefaultValue.Mock, CallBase = false)]
+    public void ReConfiguredMockSettings(Mock<IB> mock)
     {
       // Assert
       mock.Behavior.Should().Be(MockBehavior.Default).And.Be(MockBehavior.Loose);
+      mock.DefaultValue.Should ().Be (DefaultValue.Mock);
       mock.CallBase.Should().BeFalse();
-      mock.DefaultValue.Should().Be(DefaultValue.Mock);
     }
 
     [NukitoFact]
@@ -44,7 +53,7 @@ namespace Nukito.Test.Scenario
       // Implicit expectations (default overwritten by class-wide) are not fullfilled
     }
 
-    [NukitoFact, NukitoSettings (MockVerification = MockVerification.None)]
+    [NukitoFact, MockSettings (Verification = MockVerification.None)]
     public void ReConfiguredMockVerification(Mock<IB> mock)
     {
       // Arrange

@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace Nukito.Internal
+﻿namespace Nukito.Internal
 {
   public interface IResolver
   {
-    object Get(Type type);
+    object Get (Request request);
   }
 }

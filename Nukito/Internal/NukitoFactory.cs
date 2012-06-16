@@ -1,4 +1,4 @@
-﻿using Moq;
+﻿using System.Reflection;
 using Nukito.Internal.ConstructorChooser;
 using Nukito.Internal.Moq;
 using Xunit.Sdk;
@@ -17,16 +17,14 @@ namespace Nukito.Internal
           new MaxArgumentsInternalConstructorChooser()
         };
 
-    public static ITestCommand CreateCommand(IMethodInfo methodInfo, NukitoSettings settings)
+    public static ITestCommand CreateCommand (IMethodInfo methodInfo, ConstructorInfo constructor, MockSettings settings, MockSettings constructorSettings)
     {
-      var constructorChooser = new CompositeConstructorChooser(s_constructorChoosers);
-      var mockRepository = new MockRepository(settings.MockBehavior) {CallBase = settings.CallBase, DefaultValue = settings.DefaultValue};
-      var mockHandler = new MoqMockHandler(mockRepository);
-      var creator = new Creator(constructorChooser, mockHandler);
-      var resolver = new MoqResolver(creator, mockRepository);
-      var verifier = new Verifier(mockHandler, settings.MockVerification);
+      var mockRepository = new MoqMockRepository();
+      var constructorChooser = new CompositeConstructorChooser (s_constructorChoosers);
+      var resolver = new Resolver (mockRepository, constructorChooser);
+      var moqResolver = new MoqResolver (resolver);
 
-      return new NukitoFactCommand(methodInfo, resolver, verifier);
+      return new NukitoFactCommand (methodInfo, constructor, moqResolver, mockRepository, settings, constructorSettings);
     }
   }
 }

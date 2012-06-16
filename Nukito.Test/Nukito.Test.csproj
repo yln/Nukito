@@ -59,12 +59,10 @@
     <Compile Include="Scenario\ConstructorInjectionScenarios.cs" />
     <Compile Include="Scenario\RequestMockRepositoryScenarios.cs" />
     <Compile Include="Unit\ConstructorChooser\ConstructorChooserCompositeTest.cs" />
-    <Compile Include="Unit\ConstructorChooser\TestRealm.cs" />
+    <Compile Include="Unit\ConstructorChooser\TestDomain.cs" />
     <Compile Include="Unit\ConstructorChooser\ConstructorChooserTests.cs" />
-    <Compile Include="Unit\CreatorTest.cs" />
-    <Compile Include="Unit\Moq\MoqMockHandlerTest.cs" />
+    <Compile Include="Unit\Moq\MoqMockRepositoryTest.cs" />
     <Compile Include="Unit\NukitoFactCommandTest.cs" />
-    <Compile Include="Unit\NukitoFactoryTest.cs" />
     <Compile Include="Utility\MockAssertionsExtensions.cs" />
     <Compile Include="Scenario\BasicScenarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,8 +75,7 @@
     <Compile Include="Scenario\VerifyMockScenarios.cs" />
     <Compile Include="Scenario\WithDependencyScenarios.cs" />
     <Compile Include="Utility\TestUtility.cs" />
-    <Compile Include="Unit\Moq\MoqResolverTest.cs" />
-    <Compile Include="Unit\NukitoSettingsTest.cs" />
+    <Compile Include="Unit\MockSettingsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nukito\Nukito.csproj">
