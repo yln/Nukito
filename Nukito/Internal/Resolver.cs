@@ -18,11 +18,6 @@ namespace Nukito.Internal
       _mockRepository = mockRepository;
     }
 
-    public object Get (Type serviceType, Context context)
-    {
-      return Get (new Request(serviceType, false, context));
-    }
-
     public object Get (Request request)
     {
       var serviceType = request.Type;
@@ -57,9 +52,9 @@ namespace Nukito.Internal
     private object CreateInstance (Type classType, Context context)
     {
       var constructor = _constructorChooser.GetConstructor (classType);
-      var arguments = constructor.GetParameters ().Select (p => Get (p.ParameterType, context)).ToArray ();
+      var arguments = constructor.GetParameters ().Select (p => Get (new Request (p.ParameterType, false, context))).ToArray ();
 
-      return _reflectionHelper.InvokeConstructor(constructor, arguments);
+      return _reflectionHelper.InvokeConstructor (constructor, arguments);
     }
   }
 }
