@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Scenario\ConstructorInjectionScenarios.cs" />
+    <Compile Include="Scenario\ContextScenarios.cs" />
     <Compile Include="Scenario\RequestMockRepositoryScenarios.cs" />
     <Compile Include="Unit\Internal\ConstructorChooser\ConstructorChooserCompositeTest.cs" />
     <Compile Include="Unit\Internal\ConstructorChooser\TestDomain.cs" />
@@ -72,7 +73,7 @@
     <Compile Include="Scenario\InterferenceScenarios.cs" />
     <Compile Include="Scenario\MockSettingsScenarios.cs" />
     <Compile Include="Scenario\TestDomain.cs" />
-    <Compile Include="Scenario\SingletonScenarios.cs" />
+    <Compile Include="Scenario\DefaultContextScenarios.cs" />
     <Compile Include="Scenario\VerifyMockScenarios.cs" />
     <Compile Include="Scenario\WithDependencyScenarios.cs" />
     <Compile Include="Utility\TestUtility.cs" />

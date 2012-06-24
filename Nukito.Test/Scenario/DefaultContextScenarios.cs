@@ -3,7 +3,7 @@ using Moq;
 
 namespace Nukito.Test.Scenario
 {
-  public class SingletonScenarios
+  public class DefaultContextScenarios
   {
     [NukitoFact]
     public void SelfBindableTypesAreSingletons(A a1, A a2)
