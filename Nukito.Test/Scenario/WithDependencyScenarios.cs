@@ -26,5 +26,12 @@ namespace Nukito.Test.Scenario
       transDep.DepOnInterface.A.Should().BeMock<IA>();
       transDep.DepOnClass.A.Should().NotBeMock();
     }
+
+    [NukitoFact]
+    public void InstancesInSameContextAreSingletons (DepOnClass depOnClass)
+    {
+      // Assert
+      depOnClass.A.Should().BeSameAs(depOnClass.OtherA);
+    }
   }
 }

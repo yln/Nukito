@@ -29,10 +29,12 @@
   public class DepOnClass
   {
     public A A { get; private set; }
+    public A OtherA { get; private set; }
 
-    public DepOnClass(A a)
+    public DepOnClass(A a, A otherA)
     {
       A = a;
+      OtherA = otherA;
     }
   }
 
