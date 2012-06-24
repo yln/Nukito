@@ -5,24 +5,27 @@ namespace Nukito.Internal
 {
   public class Request
   {
-    public Request (Type type, bool forceMockCreation, MockSettings settings)
+    public Request (Type type, bool forceMockCreation, MockSettings settings, IDictionary<Type, object> instances)
     {
       Type = type;
       ForceMockCreation = forceMockCreation;
       Settings = settings;
-
-      Instances = new Dictionary<Type, object>();
+      Instances = instances;
     }
 
-    //public Request (Request parent, Type type, bool forceMockCreation)
-    //{
-    //  Parent = parent;
-    //  Type = type;
-    //  ForceMockCreation = forceMockCreation;
+    private Request (Request parent, Type type)
+    {
+      Parent = parent;
+      Type = type;
 
-    //  Settings = parent.Settings;
-    //  Instances = parent.Instances;
-    //}
+      Settings = parent.Settings;
+      Instances = parent.Instances;
+    }
+
+    public Request CreateSubRequest (Type type)
+    {
+      return new Request (this, type);
+    }
 
     public Request Parent { get; private set; }
     public Type Type { get; private set; }

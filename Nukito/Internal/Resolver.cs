@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Nukito.Internal
 {
   public class Resolver : IResolver
   {
-    private readonly IDictionary<Type, object> _instances = new Dictionary<Type, object>();
     private readonly IMockRepository _mockRepository;
     private readonly IConstructorChooser _constructorChooser;
     private readonly IReflectionHelper _reflectionHelper;
@@ -24,10 +22,10 @@ namespace Nukito.Internal
         return _mockRepository.WrappedRepository;
 
       object obj;
-      if (!_instances.TryGetValue (request.Type, out obj))
+      if (!request.Instances.TryGetValue (request.Type, out obj))
       {
         obj = Create (request);
-        _instances.Add (request.Type, obj);
+        request.Instances.Add (request.Type, obj);
       }
 
       return obj;
@@ -50,7 +48,7 @@ namespace Nukito.Internal
     private object CreateClassInstance (Request request)
     {
       var constructor = _constructorChooser.GetConstructor (request.Type);
-      var arguments = constructor.GetParameters ().Select (p => Get (new Request (p.ParameterType, false, request.Settings))).ToArray ();
+      var arguments = constructor.GetParameters ().Select (p => Get (request.CreateSubRequest (p.ParameterType))).ToArray ();
 
       return _reflectionHelper.InvokeConstructor (constructor, arguments);
     }
