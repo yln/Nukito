@@ -48,7 +48,7 @@ namespace Nukito.Test.Unit.Internal
       // Arrange 
       var fakeCtorArgument = new object();
       _resolver
-          .Setup (x => x.Get (It.Is ((Request r) => r.Type == _ctorArgType && !r.ForceMockCreation && r.Context.Settings == _ctorSettings)))
+          .Setup (x => x.Get (It.Is ((Request r) => r.Type == _ctorArgType && !r.ForceMockCreation && r.Settings == _ctorSettings)))
           .Returns(fakeCtorArgument);
       var fakeTestClass = new object();
       _reflectionHelper.Setup (x => x.InvokeConstructor (_fakeConstructor, new[] { fakeCtorArgument })).Returns (fakeTestClass);
@@ -57,10 +57,10 @@ namespace Nukito.Test.Unit.Internal
       _method.Setup(x => x.MethodInfo).Returns (fakeTestMethod);
       var fakeArgs = new[] { new object (), new object () };
       _resolver
-          .Setup (x => x.Get (It.Is ((Request r) => r.Type == typeof (int) && !r.ForceMockCreation && r.Context.Settings == _settings)))
+          .Setup (x => x.Get (It.Is ((Request r) => r.Type == typeof (int) && !r.ForceMockCreation && r.Settings == _settings)))
           .Returns(fakeArgs[0]);
       _resolver
-          .Setup (x => x.Get (It.Is ((Request r) => r.Type == typeof (string) && !r.ForceMockCreation && r.Context.Settings == _settings)))
+          .Setup (x => x.Get (It.Is ((Request r) => r.Type == typeof (string) && !r.ForceMockCreation && r.Settings == _settings)))
           .Returns (fakeArgs[1]);
 
       _method.Setup(x => x.Invoke(fakeTestClass, fakeArgs));

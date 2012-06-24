@@ -20,39 +20,37 @@ namespace Nukito.Internal
 
     public object Get (Request request)
     {
-      var serviceType = request.Type;
-
-      if (_mockRepository.IsMockRepositoryType (serviceType))
+      if (_mockRepository.IsMockRepositoryType (request.Type))
         return _mockRepository.WrappedRepository;
 
       object obj;
-      if (!_instances.TryGetValue (serviceType, out obj))
+      if (!_instances.TryGetValue (request.Type, out obj))
       {
-        obj = Create (serviceType, request);
-        _instances.Add (serviceType, obj);
+        obj = Create (request);
+        _instances.Add (request.Type, obj);
       }
 
       return obj;
     }
 
-    private object Create (Type serviceType, Request request)
+    private object Create (Request request)
     {
       if (!request.ForceMockCreation)
       {
-        if (serviceType.IsClass && !serviceType.IsAbstract) // TODO only if a ctor is available
-          return CreateInstance (serviceType, request.Context);
+        if (request.Type.IsClass && !request.Type.IsAbstract) // TODO only if a ctor is available
+          return CreateClassInstance (request);
 
-        if (serviceType.IsValueType)
-          return Activator.CreateInstance (serviceType);
+        if (request.Type.IsValueType)
+          return Activator.CreateInstance (request.Type);
       }
 
-      return _mockRepository.CreateMock (serviceType, request.Context.Settings);
+      return _mockRepository.CreateMock (request.Type, request.Settings);
     }
 
-    private object CreateInstance (Type classType, Context context)
+    private object CreateClassInstance (Request request)
     {
-      var constructor = _constructorChooser.GetConstructor (classType);
-      var arguments = constructor.GetParameters ().Select (p => Get (new Request (p.ParameterType, false, context))).ToArray ();
+      var constructor = _constructorChooser.GetConstructor (request.Type);
+      var arguments = constructor.GetParameters ().Select (p => Get (new Request (p.ParameterType, false, request.Settings))).ToArray ();
 
       return _reflectionHelper.InvokeConstructor (constructor, arguments);
     }

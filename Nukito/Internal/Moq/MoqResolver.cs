@@ -18,7 +18,7 @@ namespace Nukito.Internal.Moq
       var serviceType = GetServiceType (request.Type);
       var isConfigRequested = serviceType != request.Type;
       if (isConfigRequested)
-        request = new Request (serviceType, true, request.Context);
+        request = new Request (serviceType, true, request.Settings);
 
       var obj = _resolver.Get (request);
       return isConfigRequested ? ((IMocked) obj).Mock : obj;

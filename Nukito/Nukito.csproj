@@ -58,7 +58,6 @@
     <Compile Include="Internal\ConstructorChooser\SingleInternalConstructorChooser.cs" />
     <Compile Include="Internal\ConstructorChooser\SinglePublicConstructorChooser.cs" />
     <Compile Include="Internal\ConstructorChooser\SingleCtorWithInjectAttributeConstructorChooser.cs" />
-    <Compile Include="Internal\Context.cs" />
     <Compile Include="Internal\IReflectionHelper.cs" />
     <Compile Include="Internal\Moq\MoqResolver.cs" />
     <Compile Include="Internal\ReflectionHelper.cs" />

@@ -56,11 +56,10 @@ namespace Nukito.Internal
     {
       var parameters = methodBase.GetParameters();
       var arguments = new object[parameters.Length];
-      var context = new Context (settings);
 
       for (int i = 0; i < parameters.Length; i++)
       {
-        var request = new Request (parameters[i].ParameterType, false, context);
+        var request = new Request (parameters[i].ParameterType, false, settings);
         arguments[i] = _resolver.Get (request);
       }
 
