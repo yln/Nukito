@@ -62,6 +62,7 @@
     <Compile Include="Unit\Internal\ConstructorChooser\TestDomain.cs" />
     <Compile Include="Unit\Internal\ConstructorChooser\ConstructorChooserTests.cs" />
     <Compile Include="Unit\Internal\Moq\MoqMockRepositoryTest.cs" />
+    <Compile Include="Unit\Internal\Moq\MoqResolverTest.cs" />
     <Compile Include="Unit\Internal\NukitoFactCommandTest.cs" />
     <Compile Include="Utility\MockAssertionsExtensions.cs" />
     <Compile Include="Scenario\BasicScenarios.cs" />
