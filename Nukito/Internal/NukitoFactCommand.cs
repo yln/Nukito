@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using Xunit.Sdk;
+using System.Linq;
 
 namespace Nukito.Internal
 {
@@ -59,16 +60,7 @@ namespace Nukito.Internal
 
     private object[] CreateArguments (MethodBase methodBase, MockSettings settings, Dictionary<Type, object> instances)
     {
-      var parameters = methodBase.GetParameters();
-      var arguments = new object[parameters.Length];
-
-      for (int i = 0; i < parameters.Length; i++)
-      {
-        var request = new Request (parameters[i].ParameterType, false, settings, instances);
-        arguments[i] = _resolver.Get (request);
-      }
-
-      return arguments;
+      return methodBase.GetParameters().Select (p => _resolver.Get (new Request (p.ParameterType, false, settings, instances))).ToArray(); 
     }
   }
 }
