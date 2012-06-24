@@ -2,6 +2,7 @@
 
 namespace Nukito
 {
+  [AttributeUsage (AttributeTargets.Parameter, AllowMultiple = false)]
   public class CtxAttribute : Attribute
   {
     public CtxAttribute (string name)

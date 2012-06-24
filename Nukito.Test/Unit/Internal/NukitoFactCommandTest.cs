@@ -11,28 +11,30 @@ namespace Nukito.Test.Unit.Internal
   public class NukitoFactCommandTest
   {
     private readonly Mock<IMethodInfo> _method;
-    private readonly Mock<IReflectionHelper> _reflectionHelper;
+    private readonly Mock<IRequestProvider> _requestProvider;
     private readonly ConstructorInfo _fakeConstructor;
     private readonly Type _ctorArgType;
     private readonly Mock<IResolver> _resolver;
+    private readonly Mock<IReflectionHelper> _reflectionHelper;
     private readonly Mock<IMockRepository> _repository;
     private readonly MockSettings _settings;
     private readonly MockSettings _ctorSettings;
 
     private readonly NukitoFactCommand _command;
 
-    public NukitoFactCommandTest (Mock<IMethodInfo> method, Mock<IReflectionHelper> reflectionHelper, Mock<IResolver> resolver, Mock<IMockRepository> repository)
+    public NukitoFactCommandTest (Mock<IMethodInfo> method, Mock<IRequestProvider> requestProvider, Mock<IResolver> resolver, Mock<IReflectionHelper> reflectionHelper, Mock<IMockRepository> repository)
     {
       _method = method;
+      _requestProvider = requestProvider;
       _fakeConstructor = typeof (string).GetConstructor (new[] { typeof (char[]) });
       _ctorArgType = _fakeConstructor.GetParameters().Single().ParameterType;
-      _reflectionHelper = reflectionHelper;
       _resolver = resolver;
+      _reflectionHelper = reflectionHelper;
       _repository = repository;
       _settings = new MockSettings();
       _ctorSettings = new MockSettings();
 
-      _command = new NukitoFactCommand (method.Object, _fakeConstructor, reflectionHelper.Object, resolver.Object, repository.Object, _settings, _ctorSettings);
+      _command = new NukitoFactCommand (method.Object, _fakeConstructor, requestProvider.Object, resolver.Object, reflectionHelper.Object, repository.Object, _settings, _ctorSettings);
     }
 
     [NukitoFact]
@@ -45,23 +47,22 @@ namespace Nukito.Test.Unit.Internal
     [NukitoFact, MockSettings (Behavior = MockBehavior.Strict)]
     public void Execute (Type fakeType)
     {
-      // Arrange 
-      var fakeCtorArgument = new object();
-      _resolver
-          .Setup (x => x.Get (It.Is ((Request r) => r.Type == _ctorArgType && !r.ForceMockCreation && r.Settings == _ctorSettings)))
-          .Returns(fakeCtorArgument);
+      // Arrange
+      var fakeCtorArgRequest = CreateRequest();
+      _requestProvider.Setup (x => x.GetRequest(_ctorArgType, _ctorSettings)).Returns (fakeCtorArgRequest);
+      var fakeCtorArg = new object();
+      _resolver.Setup (x => x.Get (fakeCtorArgRequest)).Returns (fakeCtorArg);
       var fakeTestClass = new object();
-      _reflectionHelper.Setup (x => x.InvokeConstructor (_fakeConstructor, new[] { fakeCtorArgument })).Returns (fakeTestClass);
+      _reflectionHelper.Setup (x => x.InvokeConstructor (_fakeConstructor, new[] { fakeCtorArg })).Returns (fakeTestClass);
 
       var fakeTestMethod = typeof (TestClass).GetMethod("TestMethod");
       _method.Setup(x => x.MethodInfo).Returns (fakeTestMethod);
+      var fakeArgRequests = new[] { CreateRequest(), CreateRequest() };
+      _requestProvider.Setup (x => x.GetRequest (typeof (int), _settings)).Returns (fakeArgRequests[0]);
+      _requestProvider.Setup (x => x.GetRequest (typeof (string), _settings)).Returns (fakeArgRequests[1]);
       var fakeArgs = new[] { new object (), new object () };
-      _resolver
-          .Setup (x => x.Get (It.Is ((Request r) => r.Type == typeof (int) && !r.ForceMockCreation && r.Settings == _settings)))
-          .Returns(fakeArgs[0]);
-      _resolver
-          .Setup (x => x.Get (It.Is ((Request r) => r.Type == typeof (string) && !r.ForceMockCreation && r.Settings == _settings)))
-          .Returns (fakeArgs[1]);
+      _resolver.Setup (x => x.Get (fakeArgRequests[0])).Returns (fakeArgs[0]);
+      _resolver.Setup (x => x.Get (fakeArgRequests[1])).Returns (fakeArgs[1]);
 
       _method.Setup(x => x.Invoke(fakeTestClass, fakeArgs));
       _repository.Setup(x => x.VerifyMocks(_settings.Verification));
@@ -79,6 +80,11 @@ namespace Nukito.Test.Unit.Internal
     public class TestClass
     {
       public void TestMethod (int i, string s) { }
+    }
+
+    private Request CreateRequest()
+    {
+      return new Request (typeof (object), false, new MockSettings (), null);
     }
   }
 }

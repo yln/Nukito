@@ -19,13 +19,14 @@ namespace Nukito.Internal
 
     public static ITestCommand CreateCommand (IMethodInfo methodInfo, ConstructorInfo constructor, MockSettings settings, MockSettings constructorSettings)
     {
+      var requestProvider = new RequestProvider();
       var reflectionHelper = new ReflectionHelper();
       var mockRepository = new MoqMockRepository (reflectionHelper);
       var constructorChooser = new CompositeConstructorChooser (s_constructorChoosers);
       var resolver = new Resolver (mockRepository, constructorChooser, reflectionHelper);
       var moqResolver = new MoqResolver (resolver);
 
-      return new NukitoFactCommand (methodInfo, constructor, reflectionHelper, moqResolver, mockRepository, settings, constructorSettings);
+      return new NukitoFactCommand (methodInfo, constructor, requestProvider, moqResolver, reflectionHelper, mockRepository, settings, constructorSettings);
     }
   }
 }

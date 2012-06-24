@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
 using Xunit.Sdk;
 using System.Linq;
@@ -10,6 +8,7 @@ namespace Nukito.Internal
   public class NukitoFactCommand : FactCommand
   {
     private readonly ConstructorInfo _constructor;
+    private readonly IRequestProvider _requestProvider;
     private readonly IReflectionHelper _reflectionHelper;
     private readonly IResolver _resolver;
     private readonly IMockRepository _mockRepository;
@@ -19,16 +18,18 @@ namespace Nukito.Internal
     public NukitoFactCommand (
         IMethodInfo method,
         ConstructorInfo constructor,
-        IReflectionHelper reflectionHelper,
+        IRequestProvider requestProvider,
         IResolver resolver,
+        IReflectionHelper reflectionHelper,
         IMockRepository mockRepository,
         MockSettings settings,
         MockSettings constructorSettings)
       : base(method)
     {
       _constructor = constructor;
-      _reflectionHelper = reflectionHelper;
+      _requestProvider = requestProvider;
       _resolver = resolver;
+      _reflectionHelper = reflectionHelper;
       _mockRepository = mockRepository;
       _settings = settings;
       _constructorSettings = constructorSettings;
@@ -43,24 +44,22 @@ namespace Nukito.Internal
     {
       Debug.Assert (testClass == null);
 
-      var instances = new Dictionary<Type, object>();
-
       if (base.ShouldCreateInstance)
       {
-        var ctorArguments = CreateArguments (_constructor, _constructorSettings, instances);
+        var ctorArguments = CreateArguments (_constructor, _constructorSettings);
         testClass = _reflectionHelper.InvokeConstructor (_constructor, ctorArguments);
       }
 
-      var arguments = CreateArguments (testMethod.MethodInfo, _settings, instances);
+      var arguments = CreateArguments (testMethod.MethodInfo, _settings);
       testMethod.Invoke (testClass, arguments);
       _mockRepository.VerifyMocks (_settings.Verification);
 
       return new PassedResult (testMethod, DisplayName);
     }
 
-    private object[] CreateArguments (MethodBase methodBase, MockSettings settings, Dictionary<Type, object> instances)
+    private object[] CreateArguments (MethodBase methodBase, MockSettings settings)
     {
-      return methodBase.GetParameters().Select (p => _resolver.Get (new Request (p.ParameterType, false, settings, instances))).ToArray(); 
+      return methodBase.GetParameters().Select (p => _resolver.Get (_requestProvider.GetRequest (p.ParameterType, settings))).ToArray(); 
     }
   }
 }
