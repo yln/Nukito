@@ -18,11 +18,11 @@ namespace Nukito.Test.Scenario
       _a.Should().NotBeNull();
     }
 
-    [NukitoFact (Skip = "TODO: implement 'injection' context")]
+    [NukitoFact]
     public void TestWithParameters (IA a)
     {
       // Assert
-      _a.Should().NotBeSameAs(a);
+      _a.Should().BeSameAs(a);
     }
   }
 }

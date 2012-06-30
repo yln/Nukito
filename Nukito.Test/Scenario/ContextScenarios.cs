@@ -26,14 +26,14 @@ namespace Nukito.Test.Scenario
       a.Should ().BeSameAs (b);
     }
 
-    [NukitoFact (Skip = "TODO")]
+    [NukitoFact]
     public void Different ([Ctx ("a")] object a, [Ctx ("b")] object b)
     {
       // Assert
       a.Should ().NotBeSameAs (b);
     }
 
-    [NukitoFact (Skip = "TODO")]
+    [NukitoFact]
     public void DifferentFromDefault (object a, [Ctx ("b")] object b)
     {
       // Assert
@@ -49,7 +49,7 @@ namespace Nukito.Test.Scenario
         _a = a;
       }
 
-      [NukitoFact(Skip = "TODO")]
+      [NukitoFact]
       public void Default (object a)
       {
         // Assert
