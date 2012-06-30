@@ -35,7 +35,7 @@ namespace Nukito.Internal
     {
       if (!request.ForceMockCreation)
       {
-        if (request.Type.IsClass && !request.Type.IsAbstract) // TODO only if a ctor is available
+        if (request.Type.IsClass && !request.Type.IsAbstract)
           return CreateClassInstance (request);
 
         if (request.Type.IsValueType)
