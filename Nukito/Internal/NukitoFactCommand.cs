@@ -60,8 +60,14 @@ namespace Nukito.Internal
     private object[] CreateArguments (MethodBase methodBase, MockSettings settings)
     {
       return methodBase.GetParameters()
-          .Select (p => _resolver.Get (_requestProvider.GetRequest ("<default>", p.ParameterType, settings)))
+          .Select (p => _resolver.Get (_requestProvider.GetRequest (GetContextName (p), p.ParameterType, settings)))
           .ToArray(); 
+    }
+
+    private string GetContextName (ParameterInfo parameter)
+    {
+      var ctxAttribute = (CtxAttribute) parameter.GetCustomAttributes (typeof (CtxAttribute), false).SingleOrDefault();
+      return ctxAttribute != null ? ctxAttribute.Name : "<default>";
     }
   }
 }
