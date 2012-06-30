@@ -28,34 +28,28 @@ namespace Nukito.Test.Unit.Internal.ConstructorChooser
     }
 
     [NukitoFact]
-    public void GetConstructorShouldReturnFirstNonNull()
+    public void GetConstructorShouldReturnFirstNonNull (Mock<IConstructorChooser> cc1, [Ctx ("other")] Mock<IConstructorChooser> cc2)
     {
       // Arrange
-      // TODO: fix after 'injection' context has been implemented
-      var cc0 = new Mock<IConstructorChooser>();
-      var cc1 = new Mock<IConstructorChooser>();
-      var cc = new CompositeConstructorChooser(cc0.Object, cc1.Object);
+      var cc = new CompositeConstructorChooser (cc1.Object, cc2.Object);
       ConstructorInfo constructorInfo = typeof (A).GetConstructors().Single();
-      cc0.Setup(x => x.GetConstructor(typeof (A))).Returns(constructorInfo);
+      cc1.Setup(x => x.GetConstructor(typeof (A))).Returns(constructorInfo);
 
       // Act
       ConstructorInfo result = cc.GetConstructor(typeof (A));
 
       // Assert
       result.Should().BeSameAs(constructorInfo);
-      cc1.Verify(x => x.GetConstructor(typeof (A)), Times.Never());
+      cc2.Verify(x => x.GetConstructor(typeof (A)), Times.Never());
     }
 
     [NukitoFact]
-    public void CompositeDescription()
+    public void CompositeDescription (Mock<IConstructorChooser> cc1, [Ctx ("other")] Mock<IConstructorChooser> cc2)
     {
       // Arrange
-      // TODO: fix after 'injection' context has been implemented
-      var cc0 = new Mock<IConstructorChooser>();
-      var cc1 = new Mock<IConstructorChooser>();
-      var cc = new CompositeConstructorChooser(cc0.Object, cc1.Object);
-      cc0.Setup(x => x.StrategyDescription).Returns("AAA");
-      cc1.Setup(x => x.StrategyDescription).Returns("BBB");
+      var cc = new CompositeConstructorChooser (cc1.Object, cc2.Object);
+      cc1.Setup(x => x.StrategyDescription).Returns("AAA");
+      cc2.Setup(x => x.StrategyDescription).Returns("BBB");
 
       // Act
       string result = cc.StrategyDescription;
