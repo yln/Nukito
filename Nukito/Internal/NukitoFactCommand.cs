@@ -59,7 +59,9 @@ namespace Nukito.Internal
 
     private object[] CreateArguments (MethodBase methodBase, MockSettings settings)
     {
-      return methodBase.GetParameters().Select (p => _resolver.Get (_requestProvider.GetRequest (p.ParameterType, settings))).ToArray(); 
+      return methodBase.GetParameters()
+          .Select (p => _resolver.Get (_requestProvider.GetRequest ("<default>", p.ParameterType, settings)))
+          .ToArray(); 
     }
   }
 }

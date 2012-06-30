@@ -4,6 +4,6 @@ namespace Nukito.Internal
 {
   public interface IRequestProvider
   {
-    Request GetRequest (Type parameterType, MockSettings settings);
+    Request GetRequest (string contextName, Type parameterType, MockSettings settings);
   }
 }

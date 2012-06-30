@@ -49,7 +49,7 @@ namespace Nukito.Test.Unit.Internal
     {
       // Arrange
       var fakeCtorArgRequest = CreateRequest();
-      _requestProvider.Setup (x => x.GetRequest(_ctorArgType, _ctorSettings)).Returns (fakeCtorArgRequest);
+      _requestProvider.Setup (x => x.GetRequest("<default>", _ctorArgType, _ctorSettings)).Returns (fakeCtorArgRequest);
       var fakeCtorArg = new object();
       _resolver.Setup (x => x.Get (fakeCtorArgRequest)).Returns (fakeCtorArg);
       var fakeTestClass = new object();
@@ -58,8 +58,8 @@ namespace Nukito.Test.Unit.Internal
       var fakeTestMethod = typeof (TestClass).GetMethod("TestMethod");
       _method.Setup(x => x.MethodInfo).Returns (fakeTestMethod);
       var fakeArgRequests = new[] { CreateRequest(), CreateRequest() };
-      _requestProvider.Setup (x => x.GetRequest (typeof (int), _settings)).Returns (fakeArgRequests[0]);
-      _requestProvider.Setup (x => x.GetRequest (typeof (string), _settings)).Returns (fakeArgRequests[1]);
+      _requestProvider.Setup (x => x.GetRequest ("<default>", typeof (int), _settings)).Returns (fakeArgRequests[0]);
+      _requestProvider.Setup (x => x.GetRequest ("<default>", typeof (string), _settings)).Returns (fakeArgRequests[1]);
       var fakeArgs = new[] { new object (), new object () };
       _resolver.Setup (x => x.Get (fakeArgRequests[0])).Returns (fakeArgs[0]);
       _resolver.Setup (x => x.Get (fakeArgRequests[1])).Returns (fakeArgs[1]);
