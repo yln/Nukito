@@ -3,7 +3,6 @@ using System.Reflection;
 using FluentAssertions;
 using Moq;
 using Nukito.Test.Utility;
-using Xunit;
 using Xunit.Sdk;
 
 namespace Nukito.Test.Scenario

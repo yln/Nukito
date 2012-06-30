@@ -6,7 +6,7 @@ namespace Nukito.Example
   public class MockRepositoryExample
   {
     [NukitoFact]
-    public void MockRepositoryCanBeRetrieved(MockRepository mockRepository)
+    public void MockRepositoryCanBeRetrieved (MockRepository mockRepository)
     {
       // Assert
       mockRepository.Should().NotBeNull();

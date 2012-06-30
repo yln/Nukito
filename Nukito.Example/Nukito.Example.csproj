@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="BasicExample.cs" />
     <Compile Include="ConstructorExample.cs" />
+    <Compile Include="ContextExample.cs" />
     <Compile Include="IWarrior.cs" />
     <Compile Include="IWeapon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

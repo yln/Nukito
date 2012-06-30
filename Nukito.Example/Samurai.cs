@@ -4,7 +4,7 @@
   {
     public IWeapon Weapon { get; private set; }
 
-    public Samurai(IWeapon weapon)
+    public Samurai (IWeapon weapon)
     {
       Weapon = weapon;
     }
